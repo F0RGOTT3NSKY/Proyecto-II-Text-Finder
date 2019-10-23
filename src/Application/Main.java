@@ -63,12 +63,12 @@ public class Main extends Application {
 						System.out.println();
 					} else {
 						String subString = Item.substring(Item.length()-4);
-						if(subString.equals(".pdf")) {
+						if(subString.contains(".pdf")) {
 							ArchivosRepetidos(Item, TODOSArchivos);
-						}else if(subString.equals(".txt")) {
+						}else if(subString.contains(".txt")) {
 							ArchivosRepetidos(Item, TODOSArchivos);
 
-						}else if(subString.equals("docx")) {
+						}else if(subString.contains("docx")) {
 							ArchivosRepetidos(Item, TODOSArchivos);
 						}else {
 							System.out.println("No se acepta este archivo");
