@@ -58,23 +58,17 @@ public class Main extends Application {
 			treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				
 				public void handle (MouseEvent e) {
-					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());
-					if(Item.length()<4) {
-						System.out.println();
-					} else {
-						String subString = Item.substring(Item.length()-4);
-						if(subString.contains(".pdf")) {
-							ArchivosRepetidos(Item, TODOSArchivos);
-						}else if(subString.contains(".txt")) {
-							ArchivosRepetidos(Item, TODOSArchivos);
-
-						}else if(subString.contains("docx")) {
-							ArchivosRepetidos(Item, TODOSArchivos);
-						}else {
-							System.out.println("No se acepta este archivo");
-						}
-						System.out.println(TODOSArchivos);      	
+					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());					
+					if(Item.contains(".pdf")) {
+						ArchivosRepetidos(Item, TODOSArchivos);
+					}else if(Item.contains(".txt")) {
+						ArchivosRepetidos(Item, TODOSArchivos);
+					}else if(Item.contains(".docx")) {
+						ArchivosRepetidos(Item, TODOSArchivos);
+					}else {
+						System.out.println("No se acepta este archivo");
 					}
+					System.out.println(TODOSArchivos);      						
 				}				
 			});
         
