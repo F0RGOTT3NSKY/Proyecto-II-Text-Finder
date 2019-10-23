@@ -38,7 +38,6 @@ import javafx.scene.control.TextField;
 
 public class Main extends Application {
 	public static final Pane DisplayPane = new Pane();
-	//public static final TreeView<File> ExplorerPane = new TreeView<File>(new SimpleFileTreeItem(new File("C:\\")));
 	private static String ROOT_FOLDER = "E:/Musica"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
     TreeView<FilePath> treeView;
@@ -88,6 +87,8 @@ public class Main extends Application {
         ShowDirectory.setText(ROOT_FOLDER);
 		Button button = new Button();
 		button.setText("Example");
+		BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
+		button.setGraphic(Image1.getImageView());
 		Button DirectoryButton = new Button();
 		DirectoryButton.setText("Change Directory");
 		DirectoryButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -95,7 +96,6 @@ public class Main extends Application {
 			public void handle(ActionEvent event) {
 				DirectoryChooser directoryChooser = new DirectoryChooser();
 				File selectedDirectory = directoryChooser.showDialog(primaryStage);
-
 				if(selectedDirectory == null){
 				     //No Directory selected
 				}else{
@@ -108,7 +108,6 @@ public class Main extends Application {
 					 } catch (IOException e) {
 				    	 e.printStackTrace();
 					 }
-
 			         // show tree structure in tree view
 			         treeView.setRoot(rootTreeItem);
 				}
