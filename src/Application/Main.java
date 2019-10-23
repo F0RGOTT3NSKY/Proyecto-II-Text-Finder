@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.function.Function;
+
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 
@@ -55,19 +57,24 @@ public class Main extends Application {
         filter.setMinWidth(200);
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
-					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());
-					String ItemName = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().getFileName().toString());
-					if(Item.contains(".pdf")) {
-						ArchivosRepetidos(Item, TODOSArchivos, ItemName);
-						//System.out.println(treeView.getSelectionModel().getSelectedItem().getValue().getPath().getFileName().toString());
-					}else if(Item.contains(".txt")) {
-						ArchivosRepetidos(Item, TODOSArchivos, ItemName);
-					}else if(Item.contains(".docx")) {
-						ArchivosRepetidos(Item, TODOSArchivos, ItemName);
-					}else {
-						System.out.println("No se acepta este archivo");
-					}
-					System.out.println(TODOSArchivos);      						
+					if(e.getButton().equals(MouseButton.PRIMARY)){
+			            if(e.getClickCount() == 2){
+			                System.out.println("Double clicked");
+			                String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());
+							String ItemName = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().getFileName().toString());
+							if(Item.contains(".pdf")) {
+								ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+							}else if(Item.contains(".txt")) {
+								ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+							}else if(Item.contains(".docx")) {
+								ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+							}else {
+								System.out.println("No se acepta este archivo");
+							}
+							System.out.println(TODOSArchivos);
+			            }
+			        }
+					      						
 				}				
 			});
         
