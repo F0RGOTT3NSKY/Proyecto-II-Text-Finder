@@ -55,13 +55,15 @@ public class Main extends Application {
         filter.setMinWidth(200);
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
-					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());					
+					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());
+					String ItemName = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().getFileName().toString());
 					if(Item.contains(".pdf")) {
-						ArchivosRepetidos(Item, TODOSArchivos);
+						ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+						//System.out.println(treeView.getSelectionModel().getSelectedItem().getValue().getPath().getFileName().toString());
 					}else if(Item.contains(".txt")) {
-						ArchivosRepetidos(Item, TODOSArchivos);
+						ArchivosRepetidos(Item, TODOSArchivos, ItemName);
 					}else if(Item.contains(".docx")) {
-						ArchivosRepetidos(Item, TODOSArchivos);
+						ArchivosRepetidos(Item, TODOSArchivos, ItemName);
 					}else {
 						System.out.println("No se acepta este archivo");
 					}
@@ -128,26 +130,26 @@ public class Main extends Application {
         // show tree structure in tree view
         treeView.setRoot(rootTreeItem);
 	}
-	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input) {
+	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input, String ItemName) {
 		if(input.size() == 0) {
 			input.add(name);
 			if(name.contains(".pdf")) {
 				Button button = new Button();
-				button.setText(name);
+				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 				button.setGraphic(Image1.getImageView());
 				PDFVbox.getChildren().add(button);
 				PDFPane.setContent(PDFVbox);
 			}else if(name.contains(".txt")) {
 				Button button = new Button();
-				button.setText(name);
+				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 				button.setGraphic(Image1.getImageView());
 				TXTVbox.getChildren().add(button);
 				TXTPane.setContent(TXTVbox);
 			}else if(name.contains(".docx")) {
 				Button button = new Button();
-				button.setText(name);
+				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
 				button.setGraphic(Image1.getImageView());
 				DOCXVbox.getChildren().add(button);
@@ -164,21 +166,21 @@ public class Main extends Application {
 		input.add(name);
 		if(name.contains(".pdf")) {
 			Button button = new Button();
-			button.setText(name);
+			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			PDFVbox.getChildren().add(button);
 			PDFPane.setContent(PDFVbox);
 		}else if(name.contains(".txt")) {
 			Button button = new Button();
-			button.setText(name);
+			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			TXTVbox.getChildren().add(button);
 			TXTPane.setContent(TXTVbox);
 		}else if(name.contains(".docx")) {
 			Button button = new Button();
-			button.setText(name);
+			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			DOCXVbox.getChildren().add(button);
