@@ -1,6 +1,8 @@
 package Application;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -14,40 +16,104 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
+import Application.LinkedList.Node;
+
+import java.util.List;
 import java.util.function.Function;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+
 
 
 public class Main extends Application {
 	public static final Pane DisplayPane = new Pane();
 	//public static final TreeView<File> ExplorerPane = new TreeView<File>(new SimpleFileTreeItem(new File("C:\\")));
-	private static final String ROOT_FOLDER = "C:/Users"; // TODO: change or make selectable
+	private static String ROOT_FOLDER = "E:/Musica"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
     TreeView<FilePath> treeView;
 	public static final TitledPane PDFPane = new TitledPane("PDF",new Label("Show all PDF files available"));
 	public static final TitledPane TXTPane = new TitledPane("TXT",new Label("Show all TXT files available"));
 	public static final TitledPane DOCXPane = new TitledPane("DOCX",new Label("Show all DOCX files available"));
 	public static final int AccodionSize = 70;
-	
+	Node head;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		LinkedList<String> TODOSArchivos = new LinkedList<String>();
+		LinkedList<String> ArchivosTXT = new LinkedList<String>();
+		LinkedList<String> ArchivosDOCX = new LinkedList<String>(); 
+		LinkedList<String> ArchivosPDF = new LinkedList<String>(); 
 		treeView = new TreeView<FilePath>();
         TextField filter = new TextField();
         filter.textProperty().addListener((observable, oldValue, newValue) -> filterChanged(newValue));
+        filter.setMinWidth(200);
+			treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+				
+				public void handle (MouseEvent e) {
+					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().toString());
+					if(Item.length()<4) {
+						System.out.println();
+					} else {
+						String subString = Item.substring(Item.length()-4);
+						if(subString.equals(".pdf")) {
+							ArchivosPDF.add(Item);
+						} if(subString.equals(".txt")) {
+							ArchivosTXT.add(Item);
+
+						} if(subString.equals("docx")) {
+							ArchivosDOCX.add(Item);
+						} else {
+							System.out.println("No se acepta este archivo");
+						}
+						System.out.println(TODOSArchivos);      	
+					}
+				}				
+			});
         
+        TextField ShowDirectory = new TextField();
+        ShowDirectory.setEditable(false);
+        ShowDirectory.setMinWidth(200);
+        ShowDirectory.setText(ROOT_FOLDER);
 		Button button = new Button();
 		button.setText("Example");
-		Button button2 = new Button();
-		button2.setText("WTF");
+		Button DirectoryButton = new Button();
+		DirectoryButton.setText("Change Directory");
+		DirectoryButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				DirectoryChooser directoryChooser = new DirectoryChooser();
+				File selectedDirectory = directoryChooser.showDialog(primaryStage);
+
+				if(selectedDirectory == null){
+				     //No Directory selected
+				}else{
+				     System.out.println(selectedDirectory.getAbsolutePath());
+				     ShowDirectory.setText(selectedDirectory.getAbsolutePath());
+				     ROOT_FOLDER = selectedDirectory.getAbsolutePath();
+			     	 // create tree
+			         try {
+						 createTree();
+					 } catch (IOException e) {
+				    	 e.printStackTrace();
+					 }
+
+			         // show tree structure in tree view
+			         treeView.setRoot(rootTreeItem);
+				}
+			}
+		});
+		
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
@@ -56,7 +122,6 @@ public class Main extends Application {
 		FileAccordion.setMaxHeight(AccodionSize);		
 		SplitPane.getItems().addAll(FileSplitPane,DisplayPane);
 			DisplayPane.getChildren().add(button);
-			DisplayPane.setMinWidth(600);
 			FileSplitPane.getItems().addAll(ExplorerBorderPane,FileAccordion);
 				ExplorerBorderPane.setMinHeight(300);
 				ExplorerBorderPane.setMinWidth(200);
@@ -64,7 +129,8 @@ public class Main extends Application {
 				ToolBar.setStyle("-fx-background-color: #047ff8");
 				Label Label = new Label("Filter");
 				Label.setTextFill(Color.WHITE);
-				ToolBar.getItems().addAll(Label,filter);
+				Label Space = new Label("        ");
+				ToolBar.getItems().addAll(Label,filter,Space,DirectoryButton,ShowDirectory);
 				ExplorerBorderPane.setTop(ToolBar);
 				ExplorerBorderPane.setCenter(treeView);
 				FileAccordion.getPanes().add(PDFPane);
@@ -107,9 +173,7 @@ public class Main extends Application {
 
                 TreeItem<FilePath> newItem = new TreeItem<FilePath>( new FilePath( path));
                 newItem.setExpanded(true);
-
-                rootItem.getChildren().add(newItem);
-
+                rootItem.getChildren().add(newItem);                
                 if (Files.isDirectory(path)) {
                     createTree(newItem);
                 }
@@ -127,11 +191,11 @@ public class Main extends Application {
 
             TreeItem<FilePath> filteredChild = new TreeItem<>( child.getValue());
             filteredChild.setExpanded(true);
-
             filter(child, filter, filteredChild );
-
+            
             if (!filteredChild.getChildren().isEmpty() || isMatch(filteredChild.getValue(), filter)) {
                 filteredRoot.getChildren().add(filteredChild);
+                
             }
 
         }
