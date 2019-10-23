@@ -62,6 +62,7 @@ public class Main extends Application {
 				
 				public void handle (MouseEvent e) {
 					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().toString());
+					System.out.println(Item);
 					if(Item.length()<4) {
 						System.out.println();
 					} else {
