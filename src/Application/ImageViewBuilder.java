@@ -12,11 +12,11 @@ public class ImageViewBuilder {
 			System.out.println("set ImageDirectory to:"+ImageDirectory);
 			this.ImageDirectory = ImageDirectory;
 		}else if(ImageDirectory == ImageType.txt.toString()) {
-			ImageDirectory = ("/Images/PDFimage.png");
+			ImageDirectory = ("/Images/TXTimage.png");
 			System.out.println("set ImageDirectory to:"+ImageDirectory);
 			this.ImageDirectory = ImageDirectory;
 		}else if(ImageDirectory == ImageType.docx.toString()) {
-			ImageDirectory = ("/Images/PDFimage.png");
+			ImageDirectory = ("/Images/DOCXimage.png");
 			System.out.println("set ImageDirectory to:"+ImageDirectory);
 			this.ImageDirectory = ImageDirectory;
 		}

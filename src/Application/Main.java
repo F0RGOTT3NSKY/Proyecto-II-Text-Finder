@@ -15,6 +15,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -27,26 +28,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
-import Application.LinkedList.Node;
-
-import java.util.List;
 import java.util.function.Function;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 
-
-
 public class Main extends Application {
 	public static final Pane DisplayPane = new Pane();
-	private static String ROOT_FOLDER = "E:/Musica"; // TODO: change or make selectable
+	private static String ROOT_FOLDER = "E:/Trabajos/TEC/Intro Bostezo"; // TODO: change or make selectable
 	//private static String ROOT_FOLDER = "C:\\Users\\Mauricio\\Desktop\\Universidad\\-TEC-\\Trabajos\\IV Semestre\\Datos I\\Proyecto II\\Proyecto II"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
     TreeView<FilePath> treeView;
 	public static final TitledPane PDFPane = new TitledPane("PDF",new Label("Show all PDF files available"));
+	public static final VBox PDFVbox = new VBox();
 	public static final TitledPane TXTPane = new TitledPane("TXT",new Label("Show all TXT files available"));
+	public static final VBox TXTVbox = new VBox();
 	public static final TitledPane DOCXPane = new TitledPane("DOCX",new Label("Show all DOCX files available"));
+	public static final VBox DOCXVbox = new VBox();
 	public static final int AccodionSize = 70;
-	Node head;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -55,8 +53,7 @@ public class Main extends Application {
         TextField filter = new TextField();
         filter.textProperty().addListener((observable, oldValue, newValue) -> filterChanged(newValue));
         filter.setMinWidth(200);
-			treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
-				
+		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());					
 					if(Item.contains(".pdf")) {
@@ -76,10 +73,6 @@ public class Main extends Application {
         ShowDirectory.setEditable(false);
         ShowDirectory.setMinWidth(200);
         ShowDirectory.setText(ROOT_FOLDER);
-		Button button = new Button();
-		button.setText("Example");
-		BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
-		button.setGraphic(Image1.getImageView());
 		Button DirectoryButton = new Button();
 		DirectoryButton.setText("Change Directory");
 		DirectoryButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -104,7 +97,6 @@ public class Main extends Application {
 				}
 			}
 		});
-		
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
@@ -112,7 +104,6 @@ public class Main extends Application {
 		Accordion FileAccordion = new Accordion();
 		FileAccordion.setMaxHeight(AccodionSize);		
 		SplitPane.getItems().addAll(FileSplitPane,DisplayPane);
-			DisplayPane.getChildren().add(button);
 			FileSplitPane.getItems().addAll(ExplorerBorderPane,FileAccordion);
 				ExplorerBorderPane.setMinHeight(300);
 				ExplorerBorderPane.setMinWidth(200);
@@ -127,11 +118,9 @@ public class Main extends Application {
 				FileAccordion.getPanes().add(PDFPane);
 				FileAccordion.getPanes().add(TXTPane);
 				FileAccordion.getPanes().add(DOCXPane);
-				PDFPane.setContent(button);
 		Scene primaryScene = new Scene(SplitPane, 1200, 600);
-		
 		primaryStage.setScene(primaryScene);
-        primaryStage.setTitle("Text Finder v0.2");
+        primaryStage.setTitle("Text Finder v0.3");
         primaryStage.show();
         // create tree
         createTree();
@@ -142,6 +131,28 @@ public class Main extends Application {
 	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input) {
 		if(input.size() == 0) {
 			input.add(name);
+			if(name.contains(".pdf")) {
+				Button button = new Button();
+				button.setText(name);
+				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
+				button.setGraphic(Image1.getImageView());
+				PDFVbox.getChildren().add(button);
+				PDFPane.setContent(PDFVbox);
+			}else if(name.contains(".txt")) {
+				Button button = new Button();
+				button.setText(name);
+				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
+				button.setGraphic(Image1.getImageView());
+				TXTVbox.getChildren().add(button);
+				TXTPane.setContent(TXTVbox);
+			}else if(name.contains(".docx")) {
+				Button button = new Button();
+				button.setText(name);
+				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
+				button.setGraphic(Image1.getImageView());
+				DOCXVbox.getChildren().add(button);
+				DOCXPane.setContent(DOCXVbox);
+			}
 			return input;
 		}
 		for(int i = 0; i<input.size(); i++) {
@@ -151,6 +162,28 @@ public class Main extends Application {
 			}
 		}
 		input.add(name);
+		if(name.contains(".pdf")) {
+			Button button = new Button();
+			button.setText(name);
+			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
+			button.setGraphic(Image1.getImageView());
+			PDFVbox.getChildren().add(button);
+			PDFPane.setContent(PDFVbox);
+		}else if(name.contains(".txt")) {
+			Button button = new Button();
+			button.setText(name);
+			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
+			button.setGraphic(Image1.getImageView());
+			TXTVbox.getChildren().add(button);
+			TXTPane.setContent(TXTVbox);
+		}else if(name.contains(".docx")) {
+			Button button = new Button();
+			button.setText(name);
+			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
+			button.setGraphic(Image1.getImageView());
+			DOCXVbox.getChildren().add(button);
+			DOCXPane.setContent(DOCXVbox);
+		}
 		return input;
 	}
 	private void createTree() throws IOException {
