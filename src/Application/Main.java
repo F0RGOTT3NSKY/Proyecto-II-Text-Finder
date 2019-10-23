@@ -39,6 +39,7 @@ import javafx.scene.control.TextField;
 public class Main extends Application {
 	public static final Pane DisplayPane = new Pane();
 	private static String ROOT_FOLDER = "E:/Musica"; // TODO: change or make selectable
+	//private static String ROOT_FOLDER = "C:\\Users\\Mauricio\\Desktop\\Universidad\\-TEC-\\Trabajos\\IV Semestre\\Datos I\\Proyecto II\\Proyecto II"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
     TreeView<FilePath> treeView;
 	public static final TitledPane PDFPane = new TitledPane("PDF",new Label("Show all PDF files available"));
@@ -49,10 +50,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		LinkedList<String> TODOSArchivos = new LinkedList<String>();
-		LinkedList<String> ArchivosTXT = new LinkedList<String>();
-		LinkedList<String> ArchivosDOCX = new LinkedList<String>(); 
-		LinkedList<String> ArchivosPDF = new LinkedList<String>(); 
+		ArrayList<String> TODOSArchivos = new ArrayList<String>();
 		treeView = new TreeView<FilePath>();
         TextField filter = new TextField();
         filter.textProperty().addListener((observable, oldValue, newValue) -> filterChanged(newValue));
@@ -60,24 +58,17 @@ public class Main extends Application {
 			treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				
 				public void handle (MouseEvent e) {
-					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().toString());
-					System.out.println(Item);
-					if(Item.length()<4) {
-						System.out.println();
-					} else {
-						String subString = Item.substring(Item.length()-4);
-						if(subString.equals(".pdf")) {
-							ArchivosPDF.add(Item);
-						} if(subString.equals(".txt")) {
-							ArchivosTXT.add(Item);
-
-						} if(subString.equals("docx")) {
-							ArchivosDOCX.add(Item);
-						} else {
-							System.out.println("No se acepta este archivo");
-						}
-						System.out.println(TODOSArchivos);      	
+					String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());					
+					if(Item.contains(".pdf")) {
+						ArchivosRepetidos(Item, TODOSArchivos);
+					}else if(Item.contains(".txt")) {
+						ArchivosRepetidos(Item, TODOSArchivos);
+					}else if(Item.contains(".docx")) {
+						ArchivosRepetidos(Item, TODOSArchivos);
+					}else {
+						System.out.println("No se acepta este archivo");
 					}
+					System.out.println(TODOSArchivos);      						
 				}				
 			});
         
@@ -147,6 +138,20 @@ public class Main extends Application {
 
         // show tree structure in tree view
         treeView.setRoot(rootTreeItem);
+	}
+	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input) {
+		if(input.size() == 0) {
+			input.add(name);
+			return input;
+		}
+		for(int i = 0; i<input.size(); i++) {
+			String Comparacion = input.get(i);
+			if(name.equals(Comparacion)) {
+				return input;
+			}
+		}
+		input.add(name);
+		return input;
 	}
 	private void createTree() throws IOException {
 
