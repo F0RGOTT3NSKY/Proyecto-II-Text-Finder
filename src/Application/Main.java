@@ -185,6 +185,8 @@ public class Main extends Application {
             System.out.println(ex);
         }
     }
+	public void AgregarALista (LinkedList<String> input, String Item) {
+	}		
 	private void filter(TreeItem<FilePath> root, String filter, TreeItem<FilePath> filteredRoot) {
 
         for (TreeItem<FilePath> child : root.getChildren()) {
