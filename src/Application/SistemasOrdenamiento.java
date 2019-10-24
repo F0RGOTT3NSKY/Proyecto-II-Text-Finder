@@ -4,32 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SistemasOrdenamiento {
-	/**
-	 * Este metodo realiza el sistema de ordenamiento bubblesort con un ArrayList
-	 * @param input (Lista a ordenar)
-	 */
 	public static void BubbleSort(ArrayList<ArrayList<Object>> input) {
+		System.out.println(input);
 		ArrayList<Object> temp;
 		for (int Primero = 0; Primero < input.size(); Primero++) {
-			String Palabra1 = input.get(Primero).get(0).toString();
+			String Palabra1 = input.get(Primero).get(2).toString();
 			for (int Segundo = Primero + 1; Segundo < input.size(); Segundo++) {
-				String Palabra2 = input.get(Segundo).get(0).toString();
-				// comparing strings
+				String Palabra2 = input.get(Segundo).get(2).toString();
 				if (Palabra2.compareTo(Palabra1) < 0) {
-					temp = input.get(Primero);
-					input.set(Primero, input.get(Segundo));
-					input.set(Segundo, temp);
+		               temp = input.get(Primero);
+		               input.set(Primero, input.get(Segundo));
+		               input.set(Segundo, temp);
 				}
 			}
 		}
 		System.out.println(input);
 	}
-	/**
+ /**
 	 * Este metodo realiza el sistema de ordenamiento RadixSort con un ArrayList
 	 * @param input (Lista a ordenar)
 	 */
 	
 	public static void OrdenRaiz(ArrayList<ArrayList<Object>> input) {
+		System.out.println(input);
 		ArrayList<Integer> ArchivoTamaño = new ArrayList<Integer>();
 		ArrayList<Integer> IndiceTamaño = new ArrayList<Integer>();
 		for(int i = 0; i<input.size(); i++) {
@@ -100,20 +97,20 @@ public class SistemasOrdenamiento {
 	 */
 	
 	public static void OrdenRapido(ArrayList<ArrayList<Object>> input) {
-		ArrayList<Integer> ArchivoFecha = new ArrayList<Integer>();
-		ArrayList<Integer> IndiceFecha = new ArrayList<Integer>();
+		System.out.println(input);
+		ArrayList<Object> ArchivoNombre = new ArrayList<Object>();
+		ArrayList<Object> IndiceNombre = new ArrayList<Object>();
 		for(int i = 0; i<input.size(); i++) {
-			String TamañoString = input.get(i).get(2).toString();
-			int TamañoInt = Integer.parseInt(TamañoString);
-			ArchivoFecha.add(TamañoInt);
-			IndiceFecha.add(i);
+			String NombreString = input.get(i).get(0).toString();
+			ArchivoNombre.add(NombreString);
+			IndiceNombre.add(i);
 		}
-		ordenacionRapida(ArchivoFecha);
+		ordenacionRapida(ArchivoNombre);
 		ArrayList<Object> temp;
 		for (int Primero = 0; Primero < input.size(); Primero++) {
-			String Numero1 = input.get(Primero).get(2).toString();
+			String Numero1 = input.get(Primero).get(0).toString();
 			for (int Segundo = Primero + 1; Segundo < input.size(); Segundo++) {
-				String Numero2 = input.get(Segundo).get(2).toString();
+				String Numero2 = input.get(Segundo).get(0).toString();
 				if (Numero2.compareTo(Numero1) < 0) {
 					temp = input.get(Primero);
 					input.set(Primero, input.get(Segundo));
@@ -123,11 +120,9 @@ public class SistemasOrdenamiento {
 		}
 		System.out.println(input);
 	}
-	public static void ordenacionRapida(ArrayList<Integer> input){
-        final int N=input.size();
-        quickSort(input, 0, N-1);
-        }
-	
+	public static void ordenacionRapida(ArrayList<Object> input){
+        final int N = input.size();
+        quickSort(input, 0, N-1);}
 	/**
 	 * Este método realiza la lógica del Quicksort
 	 * @param input (Lista a ordenar)
@@ -135,26 +130,30 @@ public class SistemasOrdenamiento {
 	 * @param fin (Indice final del arraylist)
 	 */
 	
-	public static void quickSort(ArrayList<Integer> input, int inicio, int fin){
+	public static void quickSort(ArrayList<Object> input, int inicio, int fin){
         if(inicio>=fin) return;
-        int pivote = input.get(inicio);
+        int pivote = inicio;
         int elemIzq = inicio + 1;
         int elemDer = fin;
+        
         while(elemIzq <= elemDer){
-        	while(elemIzq <= fin && input.get(elemIzq)<pivote){
+        	while(elemIzq <= fin && elemIzq<pivote){
         		elemIzq++;
         		}
-        	while(elemDer > inicio && input.get(elemDer) >= pivote){
+        	while(elemDer > inicio && elemDer >= pivote){
         		elemDer--;
         		}
+        	
         	if(elemIzq < elemDer){
-        		int temp = input.get(elemIzq);
+        		int temp = elemIzq;
         		input.set(elemIzq, input.get(elemDer));
         		input.set(elemDer, temp);
         		}
         	}
         if(elemDer > inicio){
-        	int temp = input.get(inicio);
+        	String INICIO = input.get(inicio).toString();
+        	int INICIOint = Integer.parseInt(INICIO);
+        	int temp = INICIOint;
         	input.set(inicio, input.get(elemDer));
         	input.set(elemDer, temp);
         	}
