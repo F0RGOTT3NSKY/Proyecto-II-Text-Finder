@@ -9,10 +9,13 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,8 +28,12 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.function.Function;
 
@@ -40,16 +47,25 @@ public class Main extends Application {
 	//private static String ROOT_FOLDER = "C:\\Users\\Mauricio\\Desktop\\Universidad\\-TEC-\\Trabajos\\IV Semestre\\Datos I\\Proyecto II\\Proyecto II"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
     TreeView<FilePath> treeView;
+    
 	public static final TitledPane PDFPane = new TitledPane("PDF",new Label("Show all PDF files available"));
 	public static final VBox PDFVbox = new VBox();
+	public static final TableView PDFTableView = new TableView();
+	public static final SplitPane PDFSplitPane = new SplitPane();
+	
 	public static final TitledPane TXTPane = new TitledPane("TXT",new Label("Show all TXT files available"));
 	public static final VBox TXTVbox = new VBox();
+	public static final TableView TXTTableView = new TableView();
+	public static final SplitPane TXTSplitPane = new SplitPane();
+	
 	public static final TitledPane DOCXPane = new TitledPane("DOCX",new Label("Show all DOCX files available"));
 	public static final VBox DOCXVbox = new VBox();
-	public static final int AccodionSize = 70;
+	public static final TableView DOCXTableView = new TableView();
+	public static final SplitPane DOCXSplitPane = new SplitPane();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
 		ArrayList<String> TODOSArchivos = new ArrayList<String>();  
 		treeView = new TreeView<FilePath>();
         TextField filter = new TextField();
@@ -62,12 +78,53 @@ public class Main extends Application {
 			                System.out.println("Double clicked");
 			                String Item = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().toString());
 							String ItemName = new String(treeView.getSelectionModel().getSelectedItem().getValue().getPath().getFileName().toString());
+							File archivo = new File(Item);
+							Long ItemSize = archivo.length();
+							String ItemDate = new String();
+							BasicFileAttributes attrs;
+							try {
+							    attrs = Files.readAttributes(archivo.toPath(), BasicFileAttributes.class);
+							    FileTime time = attrs.creationTime();
+							    
+							    String pattern = "yyyy-MM-dd";
+							    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+								
+							    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+							    ItemDate = formatted;
+							} catch (IOException e1) {
+							    e1.printStackTrace();
+							}
+							System.out.println(ItemName+" "+ItemSize+"B"+" "+ItemDate);
 							if(Item.contains(".pdf")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+								TableColumn PDFNameColumn = new TableColumn("Name");
+					            PDFNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+					            PDFNameColumn.setMinWidth(PDFTableView.getMaxWidth()/2);
+					            TableColumn PDFSizeColumn = new TableColumn("Size");
+					            PDFSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+					            TableColumn PDFDateColumn = new TableColumn("CreationDate");
+					            PDFDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+					            PDFTableView.getColumns().addAll(PDFNameColumn,PDFSizeColumn,PDFDateColumn);
+								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".txt")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+								TableColumn TXTNameColumn = new TableColumn("Name");
+					            TXTNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+					            TXTNameColumn.setMinWidth(TXTTableView.getMaxWidth()/2);
+					            TableColumn TXTSizeColumn = new TableColumn("Size");
+					            TXTSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+					            TableColumn TXTDateColumn = new TableColumn("CreationDate");
+					            TXTDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+					            TXTTableView.getColumns().addAll(TXTNameColumn,TXTSizeColumn,TXTDateColumn);
+								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".docx")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName);
+								TableColumn DOCXNameColumn = new TableColumn("Name");
+					            DOCXNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+					            DOCXNameColumn.setMinWidth(DOCXTableView.getMaxWidth()/2);
+					            TableColumn DOCXSizeColumn = new TableColumn("Size");
+					            DOCXSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+					            TableColumn DOCXDateColumn = new TableColumn("CreationDate");
+					            DOCXDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+					            DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
+								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
 							}else {
 								System.out.println("No se acepta este archivo");
 							}
@@ -111,7 +168,6 @@ public class Main extends Application {
 		SplitPane FileSplitPane = new SplitPane();
 		FileSplitPane.setOrientation(Orientation.VERTICAL);
 		Accordion FileAccordion = new Accordion();
-		FileAccordion.setMaxHeight(AccodionSize);		
 		SplitPane.getItems().addAll(FileSplitPane,DisplayPane);
 			FileSplitPane.getItems().addAll(ExplorerBorderPane,FileAccordion);
 				ExplorerBorderPane.setMinHeight(300);
@@ -125,8 +181,17 @@ public class Main extends Application {
 				ExplorerBorderPane.setTop(ToolBar);
 				ExplorerBorderPane.setCenter(treeView);
 				FileAccordion.getPanes().add(PDFPane);
+				PDFPane.setContent(PDFSplitPane); //TODO: Splitpanes
+				PDFSplitPane.getItems().addAll(PDFVbox,PDFTableView);
+				PDFVbox.setMaxWidth(258);
 				FileAccordion.getPanes().add(TXTPane);
+				TXTPane.setContent(TXTSplitPane); //TODO: Splitpanes
+				TXTSplitPane.getItems().addAll(TXTVbox,TXTTableView);
+				TXTVbox.setMaxWidth(258);
 				FileAccordion.getPanes().add(DOCXPane);
+				DOCXPane.setContent(DOCXSplitPane); //TODO: Splitpanes
+				DOCXSplitPane.getItems().addAll(DOCXVbox,DOCXTableView);
+				DOCXVbox.setMaxWidth(258);
 		Scene primaryScene = new Scene(SplitPane, 1200, 600);
 		primaryStage.setScene(primaryScene);
         primaryStage.setTitle("Text Finder v0.3");
@@ -137,30 +202,31 @@ public class Main extends Application {
         // show tree structure in tree view
         treeView.setRoot(rootTreeItem);
 	}
-	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input, String ItemName) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input, String ItemName, Long ItemSize, String ItemDate) {
 		if(input.size() == 0) {
 			input.add(name);
 			if(name.contains(".pdf")) {
+				PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 				Button button = new Button();
 				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 				button.setGraphic(Image1.getImageView());
 				PDFVbox.getChildren().add(button);
-				PDFPane.setContent(PDFVbox);
 			}else if(name.contains(".txt")) {
+				TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 				Button button = new Button();
 				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 				button.setGraphic(Image1.getImageView());
 				TXTVbox.getChildren().add(button);
-				TXTPane.setContent(TXTVbox);
 			}else if(name.contains(".docx")) {
+				DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 				Button button = new Button();
 				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
 				button.setGraphic(Image1.getImageView());
 				DOCXVbox.getChildren().add(button);
-				DOCXPane.setContent(DOCXVbox);
 			}
 			return input;
 		}
@@ -172,26 +238,26 @@ public class Main extends Application {
 		}
 		input.add(name);
 		if(name.contains(".pdf")) {
+			PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString(), ItemDate));
 			Button button = new Button();
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			PDFVbox.getChildren().add(button);
-			PDFPane.setContent(PDFVbox);
 		}else if(name.contains(".txt")) {
+			TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString(), ItemDate));
 			Button button = new Button();
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			TXTVbox.getChildren().add(button);
-			TXTPane.setContent(TXTVbox);
 		}else if(name.contains(".docx")) {
+			DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString(), ItemDate));
 			Button button = new Button();
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			DOCXVbox.getChildren().add(button);
-			DOCXPane.setContent(DOCXVbox);
 		}
 		return input;
 	}
