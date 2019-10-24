@@ -3,5 +3,19 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/bcmail-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/bcpkix-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/bcprov-ext-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/bcprov-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/jaf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/javamail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/PDFOne.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFOne/pdfonej_t_p5.5.1013.618/bin/PDFOneJavaViewer_Executable.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFBox 2.0.17/fontbox-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFBox 2.0.17/pdfbox-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFBox 2.0.17/pdfbox-debugger-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFBox 2.0.17/pdfbox-tools-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFBox 2.0.17/preflight-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauricio/Desktop/Universidad/-TEC-/Trabajos/IV Semestre/Datos I/Libraries/PDFBox 2.0.17/xmpbox-2.0.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
