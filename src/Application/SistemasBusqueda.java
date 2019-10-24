@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import java.text.ParseException;
+
 import com.gnostice.pdfone.PdfDocument;
 import com.gnostice.pdfone.PdfException;
 import com.gnostice.pdfone.PdfSearchElement;
@@ -29,6 +31,7 @@ public class SistemasBusqueda {
 	 * @param archivo
 	 */
 	public static void Caracteristicas(ArrayList<Object> Archivos) {
+		ArrayList<Object> CaracteristicasArchivos = new ArrayList<Object>();
 		// Tamaño de archivo
 		for(int i = 0; i < Archivos.size(); i++) {
 			File archivo = new File(Archivos.get(i).toString());
@@ -49,11 +52,12 @@ public class SistemasBusqueda {
 				
 			    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
 			    CRTRS.add(formatted);
+			    CaracteristicasArchivos.add(CRTRS);
 			} catch (IOException e) {
 			    e.printStackTrace();
 			}
-			System.out.println(CRTRS);
 		}
+		System.out.println(CaracteristicasArchivos);
 	}
 	
 	/**
@@ -89,7 +93,7 @@ public class SistemasBusqueda {
 	        PdfDocument doc = new PdfDocument();
 	        doc.load("src/tarea.pdf");
 	        File PDFfile = new File(doc.getInputFilePath() + '/' + doc.getInputFileName());
-	        Archivos.add(PDFfile);
+			Archivos.add(PDFfile);
 			Caracteristicas(Archivos);
 	        int Cant_Pages = doc.getPageCount();
 	        
