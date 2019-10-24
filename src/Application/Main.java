@@ -1,6 +1,7 @@
 package Application;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -20,6 +21,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -81,6 +84,11 @@ public class Main extends Application {
 							File archivo = new File(Item);
 							Long ItemSize = archivo.length();
 							String ItemDate = new String();
+							WebView webView = new WebView();
+					        WebEngine webEngine = webView.getEngine();
+					        webEngine.load(archivo.toURI().toString());
+					        DisplayPane.getChildren().clear();
+					        DisplayPane.getChildren().add(webView);
 							BasicFileAttributes attrs;
 							try {
 							    attrs = Files.readAttributes(archivo.toPath(), BasicFileAttributes.class);
@@ -202,7 +210,6 @@ public class Main extends Application {
         // show tree structure in tree view
         treeView.setRoot(rootTreeItem);
 	}
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<String> ArchivosRepetidos(String name, ArrayList<String> input, String ItemName, Long ItemSize, String ItemDate) {
 		if(input.size() == 0) {
 			input.add(name);
@@ -238,21 +245,21 @@ public class Main extends Application {
 		}
 		input.add(name);
 		if(name.contains(".pdf")) {
-			PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString(), ItemDate));
+			PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 			Button button = new Button();
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			PDFVbox.getChildren().add(button);
 		}else if(name.contains(".txt")) {
-			TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString(), ItemDate));
+			TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 			Button button = new Button();
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 			button.setGraphic(Image1.getImageView());
 			TXTVbox.getChildren().add(button);
 		}else if(name.contains(".docx")) {
-			DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString(), ItemDate));
+			DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 			Button button = new Button();
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
