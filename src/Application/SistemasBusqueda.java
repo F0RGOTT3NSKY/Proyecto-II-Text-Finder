@@ -28,38 +28,43 @@ public class SistemasBusqueda {
 	 * Fecha de creación.
 	 * @param archivo
 	 */
-	public static void Caracteristicas(File archivo) {
+	public static void Caracteristicas(ArrayList<Object> Archivos) {
 		// Tamaño de archivo
-		Long longitud = archivo.length();
-		ArrayList<Object> CRTRS = new ArrayList<Object>();
-
-		CRTRS.add(archivo.getName());
-		CRTRS.add(longitud);
-                
-        //Fecha de creacion del archivo
-        BasicFileAttributes attrs;
-		try {
-		    attrs = Files.readAttributes(archivo.toPath(), BasicFileAttributes.class);
-		    FileTime time = attrs.creationTime();
-		    
-		    String pattern = "yyyyMMdd";
-		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			
-		    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
-		    CRTRS.add(formatted);
-		} catch (IOException e) {
-		    e.printStackTrace();
+		for(int i = 0; i < Archivos.size(); i++) {
+			File archivo = new File(Archivos.get(i).toString());
+			Long longitud = archivo.length();
+			ArrayList<Object> CRTRS = new ArrayList<Object>();
+	
+			CRTRS.add(archivo.getName());
+			CRTRS.add(longitud);
+	                
+	        //Fecha de creacion del archivo
+	        BasicFileAttributes attrs;
+			try {
+			    attrs = Files.readAttributes(archivo.toPath(), BasicFileAttributes.class);
+			    FileTime time = attrs.creationTime();
+			    
+			    String pattern = "yyyyMMdd";
+			    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+				
+			    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+			    CRTRS.add(formatted);
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			System.out.println(CRTRS);
 		}
-		System.out.println(CRTRS);
 	}
 	
 	/**
 	 * Este metodo permite buscar un String dentro de un .txt
 	 */
 	public static void BusquedaTXT(String palabra) {
+		ArrayList<Object> Archivos = new ArrayList<Object>();
 		try {
 			File ArchivoTXT = new File("src/temp.txt");
-			Caracteristicas(ArchivoTXT);
+			Archivos.add(ArchivoTXT);
+			Caracteristicas(Archivos);
 			BufferedReader b = new BufferedReader(new FileReader(ArchivoTXT));
 			String readLine = "";
 			while ((readLine = b.readLine()) != null) {
@@ -77,13 +82,15 @@ public class SistemasBusqueda {
 	 * Este metodo permite buscar un String dentro de un PDF
 	 */
 	public static void BusquedaPDF(String palabra) {
+		ArrayList<Object> Archivos = new ArrayList<Object>();
 		try {
 			//Instanciacion de cada variable necesaria
 	        PdfSearchElement ElementoBuscado;
 	        PdfDocument doc = new PdfDocument();
 	        doc.load("src/tarea.pdf");
 	        File PDFfile = new File(doc.getInputFilePath() + '/' + doc.getInputFileName());
-	        Caracteristicas(PDFfile);
+	        Archivos.add(PDFfile);
+			Caracteristicas(Archivos);
 	        int Cant_Pages = doc.getPageCount();
 	        
 	        //Iteracion en las paginas
