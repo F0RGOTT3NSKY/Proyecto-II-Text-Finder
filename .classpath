@@ -3,5 +3,19 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/bcmail-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/bcpkix-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/bcprov-ext-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/bcprov-jdk14.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/fontbox-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/jaf.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/javamail.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/pdfbox-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/pdfbox-debugger-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/pdfbox-tools-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/PDFOne.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/PDFOneJavaViewer_Executable.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/preflight-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/xmpbox-2.0.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
