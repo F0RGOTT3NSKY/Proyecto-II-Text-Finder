@@ -19,6 +19,10 @@ public class ImageViewBuilder {
 			ImageDirectory = ("/Images/DOCXimage.png");
 			System.out.println("set ImageDirectory to:"+ImageDirectory);
 			this.ImageDirectory = ImageDirectory;
+		}else if(ImageDirectory == ImageType.search.toString()) {
+			ImageDirectory = ("/Images/SEARCHimage.png");
+			System.out.println("set ImageDirectory to:"+ImageDirectory);
+			this.ImageDirectory = ImageDirectory;
 		}
 		return this;
 	}

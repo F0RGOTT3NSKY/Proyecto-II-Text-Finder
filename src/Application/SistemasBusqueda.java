@@ -22,10 +22,12 @@ import com.gnostice.pdfone.PdfSearchMode;
 import com.gnostice.pdfone.PdfSearchOptions;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class SistemasBusqueda {
 	
@@ -82,7 +84,17 @@ public class SistemasBusqueda {
 						TextField.setEditable(false);
 						TextField.setText(ArchivoTXT.getName() + " | " + readLine);
 						TextField.setMinWidth(500);
-						Main.TXTSearchVbox.getChildren().add(TextField);
+						 Button button = new Button("Open");
+			 	            button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+								public void handle (MouseEvent e) {
+									if(e.getButton().equals(MouseButton.PRIMARY)) {
+										
+									}
+								}
+							});
+			 	        HBox Hbox = new HBox();
+			 	        Hbox.getChildren().addAll(TextField,button);
+			 	        Main.TXTSearchVbox.getChildren().add(Hbox);
 					}
 				}
 				b.close();
@@ -123,7 +135,27 @@ public class SistemasBusqueda {
 			 	            TextField.setEditable(false);
 			 	            TextField.setText(File.getName() + " | " + ElementoBuscado.getLineContainingMatchString());
 			 	            TextField.setMinWidth(500);
-			 	            Main.PDFSearchVbox.getChildren().add(TextField);
+			 	            Button button = new Button("Open");
+			 	            button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+								public void handle (MouseEvent e) {
+									if(e.getButton().equals(MouseButton.PRIMARY)) {
+										if(!Desktop.isDesktopSupported()){
+								            System.out.println("Desktop is not supported");
+								            return;
+								        }
+								        Desktop desktop = Desktop.getDesktop();
+								        if(File.exists())
+											try {
+												desktop.open(File);
+											} catch (IOException e1) {
+												e1.printStackTrace();
+											}
+									}
+								}
+							});
+			 	            HBox Hbox = new HBox();
+			 	            Hbox.getChildren().addAll(TextField,button);
+			 	            Main.PDFSearchVbox.getChildren().add(Hbox);
 			 	        }
 		        }
 		        

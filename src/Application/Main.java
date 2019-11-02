@@ -125,6 +125,8 @@ public class Main extends Application {
         
         TextField Buscador = new TextField();
         Button Boton_Buscar = new Button();
+        BImageView ImageBuscar = new ImageViewBuilder().setImageDirectory(ImageType.search.toString()).build();
+		Boton_Buscar.setGraphic(ImageBuscar.getImageView());
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.PRIMARY)){
