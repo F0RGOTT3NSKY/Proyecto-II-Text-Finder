@@ -109,11 +109,6 @@ public class Main extends Application {
 							File archivo = new File(Item);
 							Long ItemSize = archivo.length();
 							String ItemDate = new String();
-							WebView webView = new WebView();
-					        WebEngine webEngine = webView.getEngine();
-					        webEngine.load(archivo.toURI().toString());
-					        DisplayPane.getChildren().clear();
-					        DisplayPane.getChildren().add(webView);
 							BasicFileAttributes attrs;
 							try {
 							    attrs = Files.readAttributes(archivo.toPath(), BasicFileAttributes.class);
@@ -170,6 +165,7 @@ public class Main extends Application {
 				}
 			}
 		});
+		//CREACION DE PANELES
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
