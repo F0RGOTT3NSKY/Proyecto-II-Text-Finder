@@ -287,8 +287,8 @@ public class Main extends Application {
 					public void handle (MouseEvent e) {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							PDFVbox.getChildren().remove(button);
+							PDFTableView.getItems().remove(input.indexOf(name));
 							input.remove(name);
-							PDFTableView.getItems().remove(input.indexOf(name)+1);
 						}
 					}
 				});
@@ -303,8 +303,8 @@ public class Main extends Application {
 					public void handle (MouseEvent e) {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							TXTVbox.getChildren().remove(button);
+							TXTTableView.getItems().remove(input.indexOf(name));
 							input.remove(name);
-							TXTTableView.getItems().remove(input.indexOf(name)+1);
 						}
 					}
 				});
@@ -319,8 +319,8 @@ public class Main extends Application {
 					public void handle (MouseEvent e) {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							DOCXVbox.getChildren().remove(button);
+							DOCXTableView.getItems().remove(input.indexOf(name));
 							input.remove(name);
-							DOCXTableView.getItems().remove(input.indexOf(name)+1);
 						}
 					}
 				});
@@ -345,8 +345,9 @@ public class Main extends Application {
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.SECONDARY)){
 						PDFVbox.getChildren().remove(button);
+						PDFTableView.getItems().remove(input.indexOf(name));
 						input.remove(name);
-						PDFTableView.getItems().remove(input.indexOf(name)+1);
+						
 					}
 				}
 			});
@@ -361,8 +362,8 @@ public class Main extends Application {
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.SECONDARY)){
 						TXTVbox.getChildren().remove(button);
+						TXTTableView.getItems().remove(input.indexOf(name));
 						input.remove(name);
-						TXTTableView.getItems().remove(input.indexOf(name)+1);
 					}
 				}
 			});
@@ -377,8 +378,8 @@ public class Main extends Application {
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.SECONDARY)){
 						DOCXVbox.getChildren().remove(button);
+						DOCXTableView.getItems().remove(input.indexOf(name));
 						input.remove(name);
-						DOCXTableView.getItems().remove(input.indexOf(name)+1);
 					}
 				}
 			});
