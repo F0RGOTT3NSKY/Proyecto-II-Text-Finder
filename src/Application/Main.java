@@ -44,7 +44,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 
 public class Main extends Application {
-	public static final Pane DisplayPane = new Pane();
+	public static final BorderPane DisplayPane = new BorderPane();
 	private static String ROOT_FOLDER = "E:/Trabajos/TEC/Intro Bostezo"; // TODO: change or make selectable
 	//private static String ROOT_FOLDER = "C:\\Users\\Mauricio\\Desktop\\Universidad\\-TEC-\\Trabajos\\IV Semestre\\Datos I\\Proyecto II\\Proyecto II"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
@@ -103,6 +103,7 @@ public class Main extends Application {
         //EVENT TO ADD FILES TO TABLEVIEW
         
         TextField Buscardor = new TextField();
+        Button Boton_Buscar = new Button();
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.PRIMARY)){
@@ -174,9 +175,11 @@ public class Main extends Application {
 			}
 		});
 		ToolBar BarraBuscador = new ToolBar();
+		BarraBuscador.getItems().addAll(Buscardor, Boton_Buscar);
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
+		DisplayPane.setTop(BarraBuscador);
 		FileSplitPane.setOrientation(Orientation.VERTICAL);
 		Accordion FileAccordion = new Accordion();
 		SplitPane.getItems().addAll(FileSplitPane,DisplayPane);
