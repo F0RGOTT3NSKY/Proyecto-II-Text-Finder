@@ -1,7 +1,6 @@
 package Application;
 
 import javafx.application.Application;
-import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -74,6 +73,32 @@ public class Main extends Application {
         TextField filter = new TextField();
         filter.textProperty().addListener((observable, oldValue, newValue) -> filterChanged(newValue));
         filter.setMinWidth(200);
+        //CREACION DE TABLECOLUMNS
+        TableColumn PDFNameColumn = new TableColumn("Name");
+        PDFNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PDFNameColumn.setMinWidth(PDFTableView.getMaxWidth()/2);
+        TableColumn PDFSizeColumn = new TableColumn("Size");
+        PDFSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        TableColumn PDFDateColumn = new TableColumn("CreationDate");
+        PDFDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        PDFTableView.getColumns().addAll(PDFNameColumn,PDFSizeColumn,PDFDateColumn);
+        TableColumn TXTNameColumn = new TableColumn("Name");
+        TXTNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TXTNameColumn.setMinWidth(TXTTableView.getMaxWidth()/2);
+        TableColumn TXTSizeColumn = new TableColumn("Size");
+        TXTSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        TableColumn TXTDateColumn = new TableColumn("CreationDate");
+        TXTDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        TXTTableView.getColumns().addAll(TXTNameColumn,TXTSizeColumn,TXTDateColumn);
+        TableColumn DOCXNameColumn = new TableColumn("Name");
+        DOCXNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        DOCXNameColumn.setMinWidth(DOCXTableView.getMaxWidth()/2);
+        TableColumn DOCXSizeColumn = new TableColumn("Size");
+        DOCXSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        TableColumn DOCXDateColumn = new TableColumn("CreationDate");
+        DOCXDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
+        //EVENT TO ADD FILES TO TABLEVIEW
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.PRIMARY)){
@@ -93,45 +118,19 @@ public class Main extends Application {
 							try {
 							    attrs = Files.readAttributes(archivo.toPath(), BasicFileAttributes.class);
 							    FileTime time = attrs.creationTime();
-							    
 							    String pattern = "yyyy-MM-dd";
 							    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-								
 							    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
 							    ItemDate = formatted;
 							} catch (IOException e1) {
 							    e1.printStackTrace();
 							}
-							System.out.println(ItemName+" "+ItemSize+"B"+" "+ItemDate);
+							System.out.println("Added Name: "+ItemName+" Size: "+ItemSize+"B"+" Date: "+ItemDate);
 							if(Item.contains(".pdf")) {
-								TableColumn PDFNameColumn = new TableColumn("Name");
-					            PDFNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-					            PDFNameColumn.setMinWidth(PDFTableView.getMaxWidth()/2);
-					            TableColumn PDFSizeColumn = new TableColumn("Size");
-					            PDFSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
-					            TableColumn PDFDateColumn = new TableColumn("CreationDate");
-					            PDFDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-					            PDFTableView.getColumns().addAll(PDFNameColumn,PDFSizeColumn,PDFDateColumn);
 								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".txt")) {
-								TableColumn TXTNameColumn = new TableColumn("Name");
-					            TXTNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-					            TXTNameColumn.setMinWidth(TXTTableView.getMaxWidth()/2);
-					            TableColumn TXTSizeColumn = new TableColumn("Size");
-					            TXTSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
-					            TableColumn TXTDateColumn = new TableColumn("CreationDate");
-					            TXTDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-					            TXTTableView.getColumns().addAll(TXTNameColumn,TXTSizeColumn,TXTDateColumn);
 								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".docx")) {
-								TableColumn DOCXNameColumn = new TableColumn("Name");
-					            DOCXNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-					            DOCXNameColumn.setMinWidth(DOCXTableView.getMaxWidth()/2);
-					            TableColumn DOCXSizeColumn = new TableColumn("Size");
-					            DOCXSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
-					            TableColumn DOCXDateColumn = new TableColumn("CreationDate");
-					            DOCXDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-					            DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
 								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
 							}else {
 								System.out.println("No se acepta este archivo");
