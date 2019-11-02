@@ -74,6 +74,10 @@ public class SistemasBusqueda {
 				while ((readLine = b.readLine()) != null) {
 					if(readLine.contains(palabra)) {
 						System.out.println(readLine);
+						TextField TextField = new TextField();
+						TextField.setEditable(false);
+						TextField.setText(readLine);
+						Main.TXTSearchVbox.getChildren().add(TextField);
 					}
 				}
 				b.close();
