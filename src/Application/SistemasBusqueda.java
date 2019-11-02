@@ -70,7 +70,9 @@ public class SistemasBusqueda {
 				BufferedReader b = new BufferedReader(new FileReader(ArchivoTXT));
 				String readLine = "";
 				while ((readLine = b.readLine()) != null) {
-					System.out.println(readLine);
+					if(readLine.contains(palabra)) {
+						System.out.println(readLine);
+					}
 				}
 				b.close();
 			} catch (FileNotFoundException e) {
@@ -84,49 +86,38 @@ public class SistemasBusqueda {
 	/**
 	 * Este metodo permite buscar un String dentro de un PDF
 	 */
-	public static void BusquedaPDF(String palabra) {
-		ArrayList<Object> Archivos = new ArrayList<Object>();
-		try {
-			//Instanciacion de cada variable necesaria
-	        PdfSearchElement ElementoBuscado;
-	        PdfDocument doc = new PdfDocument();
-	        doc.load("src/tarea.pdf");
-	        File PDFfile = new File(doc.getInputFilePath() + '/' + doc.getInputFileName());
-			Archivos.add(PDFfile);
-			Caracteristicas(Archivos);
-	        int Cant_Pages = doc.getPageCount();
-	        
-	        //Iteracion en las paginas
-	        for(int i = 1; i< Cant_Pages; i++) {
-		        ArrayList<?> ResultadosBusqueda = 
-		 	           (ArrayList<?>) doc.search(palabra, i, PdfSearchMode.LITERAL, PdfSearchOptions.NONE);
-		 	        doc.close();
-		 	        
-		 	        int n = ResultadosBusqueda.size();
-		 	        if(n == 0) {
-		 	        	System.out.println("La palabra '" + palabra + "' no se ecuentra en el archivo");		 	        
-		 	        }
-		 	        
-		 	        //Iteracion para la buqueda de la palabra en cada línea
-		 	        for (i = 0; i < n; i++) {
-		 	        	ElementoBuscado = (PdfSearchElement) ResultadosBusqueda.get(i);
-		 	            // Print search results to console output
-		 	            System.out.println("Found \"" + 
-		 	            		ElementoBuscado.getMatchString()  + 
-		 	                               "\" in page #" + 
-		 	                              ElementoBuscado.getPageNum() + 
-		 	                               " text \"" + 
-		 	                              ElementoBuscado.getLineContainingMatchString()  + 
-		 	                               "\"" );
-		 	        }
-	        }
-	        
-		} catch (FileNotFoundException e) {
-			System.out.println("El archivo no existe");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch(PdfException e) {
-			e.getStackTrace();
+	public static void BusquedaPDF(ArrayList<String> input,String palabra) {
+		for(int indice = 0; indice < input.size(); indice++) {
+			try {
+				//Instanciacion de cada variable necesaria
+		        PdfSearchElement ElementoBuscado;
+		        PdfDocument doc = new PdfDocument();
+		        doc.load(input.get(indice));
+		        int Cant_Pages = doc.getPageCount();
+		        
+		        //Iteracion en las paginas
+		        for(int i = 1; i< Cant_Pages; i++) {
+			        ArrayList<?> ResultadosBusqueda = 
+			 	           (ArrayList<?>) doc.search(palabra, i, PdfSearchMode.LITERAL, PdfSearchOptions.NONE);
+			 	        doc.close();
+			 	        
+			 	        int n = ResultadosBusqueda.size();
+			 	        
+			 	        //Iteracion para la buqueda de la palabra en cada línea
+			 	        for (i = 0; i < n; i++) {
+			 	        	ElementoBuscado = (PdfSearchElement) ResultadosBusqueda.get(i);
+			 	            // Print search results to console output
+			 	            System.out.println(ElementoBuscado.getLineContainingMatchString() + "\"" );
+			 	        }
+		        }
+		        
+			} catch (FileNotFoundException e) {
+				System.out.println("El archivo no existe");
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch(PdfException e) {
+				e.getStackTrace();
+			}
 		}
 	}
 }
