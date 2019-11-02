@@ -82,7 +82,7 @@ public class Main extends Application {
         //CREACION DE TABLECOLUMNS
         TableColumn PDFNameColumn = new TableColumn("Name");
         PDFNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        PDFNameColumn.setMinWidth(PDFTableView.getMaxWidth()/2);
+        PDFNameColumn.setMinWidth(200);
         TableColumn PDFSizeColumn = new TableColumn("Size");
         PDFSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         TableColumn PDFDateColumn = new TableColumn("CreationDate");
@@ -90,7 +90,6 @@ public class Main extends Application {
         PDFTableView.getColumns().addAll(PDFNameColumn,PDFSizeColumn,PDFDateColumn);
         TableColumn TXTNameColumn = new TableColumn("Name");
         TXTNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TXTNameColumn.setMinWidth(TXTTableView.getMaxWidth()/2);
         TableColumn TXTSizeColumn = new TableColumn("Size");
         TXTSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         TableColumn TXTDateColumn = new TableColumn("CreationDate");
@@ -98,7 +97,6 @@ public class Main extends Application {
         TXTTableView.getColumns().addAll(TXTNameColumn,TXTSizeColumn,TXTDateColumn);
         TableColumn DOCXNameColumn = new TableColumn("Name");
         DOCXNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        DOCXNameColumn.setMinWidth(DOCXTableView.getMaxWidth()/2);
         TableColumn DOCXSizeColumn = new TableColumn("Size");
         DOCXSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         TableColumn DOCXDateColumn = new TableColumn("CreationDate");
