@@ -44,7 +44,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 
 public class Main extends Application {
-	public static final Pane DisplayPane = new Pane();
+	public static final BorderPane DisplayPane = new BorderPane();
 	private static String ROOT_FOLDER = "E:/Trabajos/TEC/Intro Bostezo"; // TODO: change or make selectable
 	//private static String ROOT_FOLDER = "C:\\Users\\Mauricio\\Desktop\\Universidad\\-TEC-\\Trabajos\\IV Semestre\\Datos I\\Proyecto II\\Proyecto II"; // TODO: change or make selectable
     TreeItem<FilePath> rootTreeItem;
@@ -68,7 +68,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		ArrayList<String> TODOSArchivos = new ArrayList<String>();  
+		ArrayList<String> ArchivosTXT = new ArrayList<String>();
+		ArrayList<String> ArchivosPDF = new ArrayList<String>();
+		ArrayList<String> ArchivosDOCX = new ArrayList<String>();
 		treeView = new TreeView<FilePath>();
         TextField filter = new TextField();
         filter.textProperty().addListener((observable, oldValue, newValue) -> filterChanged(newValue));
@@ -99,6 +101,8 @@ public class Main extends Application {
         DOCXDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
         //EVENT TO ADD FILES TO TABLEVIEW
+        
+        TextField Buscardor = new TextField();
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.PRIMARY)){
@@ -122,15 +126,14 @@ public class Main extends Application {
 							}
 							System.out.println("Added Name: "+ItemName+" Size: "+ItemSize+"B"+" Date: "+ItemDate);
 							if(Item.contains(".pdf")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
+								ArchivosRepetidos(Item, ArchivosPDF, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".txt")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
+								ArchivosRepetidos(Item, ArchivosTXT, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".docx")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
+								ArchivosRepetidos(Item, ArchivosDOCX, ItemName, ItemSize, ItemDate);
 							}else {
 								System.out.println("No se acepta este archivo");
 							}
-							System.out.println(TODOSArchivos);
 			            }
 			        }
 					      						
@@ -166,6 +169,8 @@ public class Main extends Application {
 			}
 		});
 		//CREACION DE PANELES
+		ToolBar BarraBuscador = new ToolBar();
+		
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
