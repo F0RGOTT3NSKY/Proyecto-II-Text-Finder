@@ -51,16 +51,19 @@ public class Main extends Application {
     TreeView<FilePath> treeView;
     
 	public static final TitledPane PDFPane = new TitledPane("PDF",new Label("Show all PDF files available"));
+	public static final TitledPane PDFWordSearch = new TitledPane("PDF",new Label("Show all PDF files available"));
 	public static final VBox PDFVbox = new VBox();
 	public static final TableView PDFTableView = new TableView();
 	public static final SplitPane PDFSplitPane = new SplitPane();
 	
 	public static final TitledPane TXTPane = new TitledPane("TXT",new Label("Show all TXT files available"));
+	public static final TitledPane TXTWordSearch = new TitledPane("TXT",new Label("Show all TXT files available"));
 	public static final VBox TXTVbox = new VBox();
 	public static final TableView TXTTableView = new TableView();
 	public static final SplitPane TXTSplitPane = new SplitPane();
 	
 	public static final TitledPane DOCXPane = new TitledPane("DOCX",new Label("Show all DOCX files available"));
+	public static final TitledPane DOCXWordSearch = new TitledPane("DOCX",new Label("Show all DOCX files available"));
 	public static final VBox DOCXVbox = new VBox();
 	public static final TableView DOCXTableView = new TableView();
 	public static final SplitPane DOCXSplitPane = new SplitPane();
@@ -193,7 +196,15 @@ public class Main extends Application {
 		
 		FileSplitPane.setOrientation(Orientation.VERTICAL);
 		Accordion FileAccordion = new Accordion();
-		SplitPane.getItems().addAll(FileSplitPane,DisplayPane);
+		Accordion WordSearch = new Accordion();
+		WordSearch.getPanes().addAll(PDFWordSearch,TXTWordSearch,DOCXWordSearch);
+		WordSearch.setMinHeight(540);
+		SplitPane SplitPane2 = new SplitPane();
+		SplitPane2.setOrientation(Orientation.VERTICAL);
+		SplitPane2.getItems().addAll(DisplayPane,WordSearch);
+		Label Label2 = new Label("Busquedas");
+		DisplayPane.setBottom(Label2);
+		SplitPane.getItems().addAll(FileSplitPane,SplitPane2);
 			FileSplitPane.getItems().addAll(ExplorerBorderPane,FileAccordion);
 				ExplorerBorderPane.setMinHeight(300);
 				ExplorerBorderPane.setMinWidth(200);
@@ -205,6 +216,8 @@ public class Main extends Application {
 				ToolBar.getItems().addAll(Label,filter,Space,DirectoryButton,ShowDirectory);
 				ExplorerBorderPane.setTop(ToolBar);
 				ExplorerBorderPane.setCenter(treeView);
+				Label Label1 = new Label("Archivos Seleccionados");
+				ExplorerBorderPane.setBottom(Label1);
 				FileAccordion.getPanes().add(PDFPane);
 				PDFPane.setContent(PDFSplitPane); //TODO: Splitpanes
 				PDFSplitPane.getItems().addAll(PDFVbox,PDFTableView);
