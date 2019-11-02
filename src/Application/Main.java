@@ -267,6 +267,7 @@ public class Main extends Application {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							PDFVbox.getChildren().remove(button);
 							input.remove(name);
+							PDFTableView.getItems().remove(0);
 						}
 					}
 				});
@@ -280,8 +281,9 @@ public class Main extends Application {
 				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 					public void handle (MouseEvent e) {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
-							PDFVbox.getChildren().remove(button);
+							TXTVbox.getChildren().remove(button);
 							input.remove(name);
+							TXTTableView.getItems().remove(0);
 						}
 					}
 				});
@@ -295,8 +297,9 @@ public class Main extends Application {
 				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 					public void handle (MouseEvent e) {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
-							PDFVbox.getChildren().remove(button);
+							DOCXVbox.getChildren().remove(button);
 							input.remove(name);
+							DOCXTableView.getItems().remove(0);
 						}
 					}
 				});
@@ -322,6 +325,7 @@ public class Main extends Application {
 					if(e.getButton().equals(MouseButton.SECONDARY)){
 						PDFVbox.getChildren().remove(button);
 						input.remove(name);
+						PDFTableView.getItems().remove(input.indexOf(name)+1);
 					}
 				}
 			});
@@ -335,8 +339,9 @@ public class Main extends Application {
 			button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.SECONDARY)){
-						PDFVbox.getChildren().remove(button);
+						TXTVbox.getChildren().remove(button);
 						input.remove(name);
+						TXTTableView.getItems().remove(input.indexOf(name)+1);
 					}
 				}
 			});
@@ -350,8 +355,9 @@ public class Main extends Application {
 			button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.SECONDARY)){
-						PDFVbox.getChildren().remove(button);
+						DOCXVbox.getChildren().remove(button);
 						input.remove(name);
+						DOCXTableView.getItems().remove(input.indexOf(name)+1);
 					}
 				}
 			});
