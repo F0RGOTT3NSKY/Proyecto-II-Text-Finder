@@ -174,6 +174,7 @@ public class Main extends Application {
 		});
 		//CREACION DE PANELES
 		ToolBar BarraBuscador = new ToolBar();
+		BarraBuscador.setStyle("-fx-background-color: #FF4500");
 		BarraBuscador.getItems().addAll(Buscador, Boton_Buscar);
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
@@ -198,25 +199,27 @@ public class Main extends Application {
 		Accordion FileAccordion = new Accordion();
 		Accordion WordSearch = new Accordion();
 		WordSearch.getPanes().addAll(PDFWordSearch,TXTWordSearch,DOCXWordSearch);
-		WordSearch.setMinHeight(540);
+		WordSearch.setMinHeight(557);
 		SplitPane SplitPane2 = new SplitPane();
 		SplitPane2.setOrientation(Orientation.VERTICAL);
 		SplitPane2.getItems().addAll(DisplayPane,WordSearch);
-		Label Label2 = new Label("Busquedas");
-		DisplayPane.setBottom(Label2);
 		SplitPane.getItems().addAll(FileSplitPane,SplitPane2);
 			FileSplitPane.getItems().addAll(ExplorerBorderPane,FileAccordion);
 				ExplorerBorderPane.setMinHeight(300);
 				ExplorerBorderPane.setMinWidth(200);
 				ToolBar ToolBar = new ToolBar();
-				ToolBar.setStyle("-fx-background-color: #047ff8");
+				ToolBar.setStyle("-fx-background-color: #FF4500");
 				Label Label = new Label("Filter");
 				Label.setTextFill(Color.WHITE);
 				Label Space = new Label("        ");
 				ToolBar.getItems().addAll(Label,filter,Space,DirectoryButton,ShowDirectory);
 				ExplorerBorderPane.setTop(ToolBar);
 				ExplorerBorderPane.setCenter(treeView);
-				Label Label1 = new Label("Archivos Seleccionados");
+				//Label Label1 = new Label("Archivos Seleccionados                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ");
+				Label Label1= new Label("Archivos Seleccionados");
+				Label1.setMinWidth(2000);
+				Label1.setStyle("-fx-background-color: #FF4500");
+				Label1.setTextFill(Color.WHITE);
 				ExplorerBorderPane.setBottom(Label1);
 				FileAccordion.getPanes().add(PDFPane);
 				PDFPane.setContent(PDFSplitPane); //TODO: Splitpanes
