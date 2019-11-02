@@ -37,6 +37,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.function.Function;
+import java.awt.Desktop;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -533,6 +534,25 @@ public class Main extends Application {
 					}
 				});
 				PDFVbox.getChildren().add(button);
+				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.PRIMARY)) {
+							File file = new File(name);
+							if(!Desktop.isDesktopSupported()){
+					            System.out.println("Desktop is not supported");
+					            return;
+					        }
+					        
+					        Desktop desktop = Desktop.getDesktop();
+					        if(file.exists())
+								try {
+									desktop.open(file);
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+						}
+					}
+				});
 			}else if(name.contains(".txt")) {
 				TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 				Button button = new Button();
@@ -549,6 +569,25 @@ public class Main extends Application {
 					}
 				});
 				TXTVbox.getChildren().add(button);
+				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.PRIMARY)) {
+							File file = new File(name);
+							if(!Desktop.isDesktopSupported()){
+					            System.out.println("Desktop is not supported");
+					            return;
+					        }
+					        
+					        Desktop desktop = Desktop.getDesktop();
+					        if(file.exists())
+								try {
+									desktop.open(file);
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+						}
+					}
+				});
 			}else if(name.contains(".docx")) {
 				DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
 				Button button = new Button();
@@ -565,6 +604,25 @@ public class Main extends Application {
 					}
 				});
 				DOCXVbox.getChildren().add(button);
+				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.PRIMARY)) {
+							File file = new File(name);
+							if(!Desktop.isDesktopSupported()){
+					            System.out.println("Desktop is not supported");
+					            return;
+					        }
+					        
+					        Desktop desktop = Desktop.getDesktop();
+					        if(file.exists())
+								try {
+									desktop.open(file);
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+						}
+					}
+				});
 			}
 			return input;
 		}
