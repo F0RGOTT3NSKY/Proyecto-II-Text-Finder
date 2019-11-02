@@ -70,7 +70,9 @@ public class SistemasBusqueda {
 				BufferedReader b = new BufferedReader(new FileReader(ArchivoTXT));
 				String readLine = "";
 				while ((readLine = b.readLine()) != null) {
-					System.out.println(readLine);
+					if(readLine.contains(palabra)) {
+						System.out.println(readLine);
+					}
 				}
 				b.close();
 			} catch (FileNotFoundException e) {
