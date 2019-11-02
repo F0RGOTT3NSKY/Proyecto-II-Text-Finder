@@ -1,5 +1,6 @@
 package Application;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,8 +21,11 @@ import com.gnostice.pdfone.PdfSearchElement;
 import com.gnostice.pdfone.PdfSearchMode;
 import com.gnostice.pdfone.PdfSearchOptions;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 public class SistemasBusqueda {
 	

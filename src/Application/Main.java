@@ -339,12 +339,13 @@ public class Main extends Application {
 					        }
 					        
 					        Desktop desktop = Desktop.getDesktop();
-					        if(file.exists())
+					        if(file.exists()) {
 								try {
 									desktop.open(file);
 								} catch (IOException e1) {
 									e1.printStackTrace();
 								}
+					        }
 						}
 					}
 				});
