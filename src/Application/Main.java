@@ -68,7 +68,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		ArrayList<String> TODOSArchivos = new ArrayList<String>();
 		ArrayList<String> ArchivosTXT = new ArrayList<String>();
 		ArrayList<String> ArchivosPDF = new ArrayList<String>();
 		ArrayList<String> ArchivosDOCX = new ArrayList<String>();
@@ -102,6 +101,8 @@ public class Main extends Application {
         DOCXDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
         //EVENT TO ADD FILES TO TABLEVIEW
+        
+        TextField Buscardor = new TextField();
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
 					if(e.getButton().equals(MouseButton.PRIMARY)){
@@ -130,15 +131,14 @@ public class Main extends Application {
 							}
 							System.out.println("Added Name: "+ItemName+" Size: "+ItemSize+"B"+" Date: "+ItemDate);
 							if(Item.contains(".pdf")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
+								ArchivosRepetidos(Item, ArchivosPDF, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".txt")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
+								ArchivosRepetidos(Item, ArchivosTXT, ItemName, ItemSize, ItemDate);
 							}else if(Item.contains(".docx")) {
-								ArchivosRepetidos(Item, TODOSArchivos, ItemName, ItemSize, ItemDate);
+								ArchivosRepetidos(Item, ArchivosDOCX, ItemName, ItemSize, ItemDate);
 							}else {
 								System.out.println("No se acepta este archivo");
 							}
-							System.out.println(TODOSArchivos);
 			            }
 			        }
 					      						
@@ -173,6 +173,7 @@ public class Main extends Application {
 				}
 			}
 		});
+		ToolBar BarraBuscador = new ToolBar();
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
