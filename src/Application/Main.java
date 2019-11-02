@@ -187,9 +187,9 @@ public class Main extends Application {
 				String PalabraBuscar = String.valueOf(Buscador.getText());
 				if(PalabraBuscar.length() == 0) {
 					System.out.println("Ingrese una palabra");
-				} else {
-					SistemasBusqueda.BusquedaTXT(ArchivosTXT, PalabraBuscar);
 				}
+				SistemasBusqueda.BusquedaTXT(ArchivosTXT, PalabraBuscar);
+				SistemasBusqueda.BusquedaPDF(ArchivosPDF, PalabraBuscar);
 			}
 			
 		});
