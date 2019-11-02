@@ -85,8 +85,10 @@ public class Main extends Application {
         PDFNameColumn.setMinWidth(200);
         TableColumn PDFSizeColumn = new TableColumn("Size");
         PDFSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        PDFSizeColumn.setMinWidth(50);
         TableColumn PDFDateColumn = new TableColumn("CreationDate");
         PDFDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        PDFDateColumn.setMinWidth(50);
         PDFTableView.getColumns().addAll(PDFNameColumn,PDFSizeColumn,PDFDateColumn);
         TableColumn TXTNameColumn = new TableColumn("Name");
         TXTNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -137,6 +139,7 @@ public class Main extends Application {
 							}else {
 								System.out.println("No se acepta este archivo");
 							}
+							
 			            }
 			        }
 					      						
@@ -259,6 +262,14 @@ public class Main extends Application {
 				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 				button.setGraphic(Image1.getImageView());
+				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.SECONDARY)){
+							PDFVbox.getChildren().remove(button);
+							input.remove(name);
+						}
+					}
+				});
 				PDFVbox.getChildren().add(button);
 			}else if(name.contains(".txt")) {
 				TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
@@ -266,6 +277,14 @@ public class Main extends Application {
 				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 				button.setGraphic(Image1.getImageView());
+				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.SECONDARY)){
+							PDFVbox.getChildren().remove(button);
+							input.remove(name);
+						}
+					}
+				});
 				TXTVbox.getChildren().add(button);
 			}else if(name.contains(".docx")) {
 				DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
@@ -273,6 +292,14 @@ public class Main extends Application {
 				button.setText(ItemName);
 				BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
 				button.setGraphic(Image1.getImageView());
+				button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.SECONDARY)){
+							PDFVbox.getChildren().remove(button);
+							input.remove(name);
+						}
+					}
+				});
 				DOCXVbox.getChildren().add(button);
 			}
 			return input;
@@ -290,6 +317,14 @@ public class Main extends Application {
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.pdf.toString()).build();
 			button.setGraphic(Image1.getImageView());
+			button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+				public void handle (MouseEvent e) {
+					if(e.getButton().equals(MouseButton.SECONDARY)){
+						PDFVbox.getChildren().remove(button);
+						input.remove(name);
+					}
+				}
+			});
 			PDFVbox.getChildren().add(button);
 		}else if(name.contains(".txt")) {
 			TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
@@ -297,6 +332,14 @@ public class Main extends Application {
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.txt.toString()).build();
 			button.setGraphic(Image1.getImageView());
+			button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+				public void handle (MouseEvent e) {
+					if(e.getButton().equals(MouseButton.SECONDARY)){
+						PDFVbox.getChildren().remove(button);
+						input.remove(name);
+					}
+				}
+			});
 			TXTVbox.getChildren().add(button);
 		}else if(name.contains(".docx")) {
 			DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
@@ -304,6 +347,14 @@ public class Main extends Application {
 			button.setText(ItemName);
 			BImageView Image1 = new ImageViewBuilder().setImageDirectory(ImageType.docx.toString()).build();
 			button.setGraphic(Image1.getImageView());
+			button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+				public void handle (MouseEvent e) {
+					if(e.getButton().equals(MouseButton.SECONDARY)){
+						PDFVbox.getChildren().remove(button);
+						input.remove(name);
+					}
+				}
+			});
 			DOCXVbox.getChildren().add(button);
 		}
 		return input;
