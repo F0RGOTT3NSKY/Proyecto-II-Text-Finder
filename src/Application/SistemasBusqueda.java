@@ -20,6 +20,7 @@ import com.gnostice.pdfone.PdfSearchElement;
 import com.gnostice.pdfone.PdfSearchMode;
 import com.gnostice.pdfone.PdfSearchOptions;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class SistemasBusqueda {
@@ -73,10 +74,10 @@ public class SistemasBusqueda {
 				String readLine = "";
 				while ((readLine = b.readLine()) != null) {
 					if(readLine.contains(palabra)) {
-						System.out.println(readLine);
 						TextField TextField = new TextField();
 						TextField.setEditable(false);
-						TextField.setText(readLine);
+						TextField.setText(ArchivoTXT.getName() + " | " + readLine);
+						TextField.setMinWidth(500);
 						Main.TXTSearchVbox.getChildren().add(TextField);
 					}
 				}
@@ -98,6 +99,7 @@ public class SistemasBusqueda {
 				//Instanciacion de cada variable necesaria
 		        PdfSearchElement ElementoBuscado;
 		        PdfDocument doc = new PdfDocument();
+		        File File = new File(input.get(indice));
 		        doc.load(input.get(indice));
 		        int Cant_Pages = doc.getPageCount();
 		        
@@ -113,10 +115,10 @@ public class SistemasBusqueda {
 			 	        for (i = 0; i < n; i++) {
 			 	        	ElementoBuscado = (PdfSearchElement) ResultadosBusqueda.get(i);
 			 	            // Print search results to console output
-			 	            System.out.println(ElementoBuscado.getLineContainingMatchString() + "\"" );
 			 	            TextField TextField = new TextField();
 			 	            TextField.setEditable(false);
-			 	            TextField.setText(ElementoBuscado.getLineContainingMatchString());
+			 	            TextField.setText(File.getName() + " | " + ElementoBuscado.getLineContainingMatchString());
+			 	            TextField.setMinWidth(500);
 			 	            Main.PDFSearchVbox.getChildren().add(TextField);
 			 	        }
 		        }
