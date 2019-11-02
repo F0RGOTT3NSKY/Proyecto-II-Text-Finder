@@ -102,7 +102,7 @@ public class Main extends Application {
         DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
         //EVENT TO ADD FILES TO TABLEVIEW
         
-        TextField Buscardor = new TextField();
+        TextField Buscador = new TextField();
         Button Boton_Buscar = new Button();
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 				public void handle (MouseEvent e) {
@@ -171,11 +171,26 @@ public class Main extends Application {
 		});
 		//CREACION DE PANELES
 		ToolBar BarraBuscador = new ToolBar();
-		BarraBuscador.getItems().addAll(Buscardor, Boton_Buscar);
+		BarraBuscador.getItems().addAll(Buscador, Boton_Buscar);
 		SplitPane SplitPane = new SplitPane();
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
 		DisplayPane.setTop(BarraBuscador);
+		
+		Boton_Buscar.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				String PalabraBuscar = String.valueOf(Buscador.getText());
+				if(PalabraBuscar.length() == 0) {
+					System.out.println("Ingrese una palabra");
+				} else {
+					SistemasBusqueda.BusquedaTXT(ArchivosTXT, PalabraBuscar);
+				}
+			}
+			
+		});
+		
 		FileSplitPane.setOrientation(Orientation.VERTICAL);
 		Accordion FileAccordion = new Accordion();
 		SplitPane.getItems().addAll(FileSplitPane,DisplayPane);

@@ -63,22 +63,21 @@ public class SistemasBusqueda {
 	/**
 	 * Este metodo permite buscar un String dentro de un .txt
 	 */
-	public static void BusquedaTXT(String palabra) {
-		ArrayList<Object> Archivos = new ArrayList<Object>();
-		try {
-			File ArchivoTXT = new File("src/temp.txt");
-			Archivos.add(ArchivoTXT);
-			Caracteristicas(Archivos);
-			BufferedReader b = new BufferedReader(new FileReader(ArchivoTXT));
-			String readLine = "";
-			while ((readLine = b.readLine()) != null) {
-				System.out.println(readLine);
+	public static void BusquedaTXT(ArrayList<String> input, String palabra) {
+		for(int i = 0; i < input.size(); i++) {
+			try {
+				File ArchivoTXT = new File(input.get(i));
+				BufferedReader b = new BufferedReader(new FileReader(ArchivoTXT));
+				String readLine = "";
+				while ((readLine = b.readLine()) != null) {
+					System.out.println(readLine);
+				}
+				b.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("El archivo no existe");	
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			b.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("El archivo no existe");	
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
