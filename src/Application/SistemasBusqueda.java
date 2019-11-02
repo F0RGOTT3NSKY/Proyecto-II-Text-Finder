@@ -88,7 +88,17 @@ public class SistemasBusqueda {
 			 	            button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
 								public void handle (MouseEvent e) {
 									if(e.getButton().equals(MouseButton.PRIMARY)) {
-										
+										if(!Desktop.isDesktopSupported()){
+								            System.out.println("Desktop is not supported");
+								            return;
+								        }
+								        Desktop desktop = Desktop.getDesktop();
+								        if(ArchivoTXT.exists())
+											try {
+												desktop.open(ArchivoTXT);
+											} catch (IOException e1) {
+												e1.printStackTrace();
+											}
 									}
 								}
 							});
