@@ -242,14 +242,254 @@ public class Main extends Application {
 				ToolBar.getItems().addAll(Label,filter,Space,DirectoryButton,ShowDirectory);
 				ExplorerBorderPane.setTop(ToolBar);
 				ExplorerBorderPane.setCenter(treeView);
-				//Label Label1 = new Label("Archivos Seleccionados                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ");
 				Label Label1= new Label("Archivos Seleccionados");
 				Label1.setTextFill(Color.WHITE);
 				ToolBar Ordenamientos = new ToolBar();
 				Ordenamientos.setStyle("-fx-background-color: #FF4500");
 				Button NameSort = new Button("   Name   ");
+				NameSort.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.PRIMARY)){
+							QuickSort ob = new QuickSort();
+							ob.sort(ArchivosPDF, 0, ArchivosPDF.size()-1);
+							System.out.println(ArchivosPDF);
+							PDFTableView.getItems().clear();
+							for(int x=0;x<ArchivosPDF.size();x++) {
+								File File = new File(ArchivosPDF.get(x));
+								String ItemName = File.getName();
+								Long ItemSize = File.length();
+								String ItemDate = new String();
+								BasicFileAttributes attrs;
+								try {
+								    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+								    FileTime time = attrs.creationTime();
+								    String pattern = "yyyy-MM-dd";
+								    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+								    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+								    ItemDate = formatted;
+								} catch (IOException e1) {
+								    e1.printStackTrace();
+								}
+								PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+							}
+							QuickSort ob1 = new QuickSort();
+							ob1.sort(ArchivosTXT, 0, ArchivosTXT.size()-1);
+							System.out.println(ArchivosTXT);
+							TXTTableView.getItems().clear();
+							for(int x=0;x<ArchivosTXT.size();x++) {
+								File File = new File(ArchivosTXT.get(x));
+								String ItemName = File.getName();
+								Long ItemSize = File.length();
+								String ItemDate = new String();
+								BasicFileAttributes attrs;
+								try {
+								    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+								    FileTime time = attrs.creationTime();
+								    String pattern = "yyyy-MM-dd";
+								    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+								    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+								    ItemDate = formatted;
+								} catch (IOException e1) {
+								    e1.printStackTrace();
+								}
+								TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+							}
+							QuickSort ob11 = new QuickSort();
+							ob11.sort(ArchivosDOCX, 0, ArchivosDOCX.size()-1);
+							System.out.println(ArchivosDOCX);
+							DOCXTableView.getItems().clear();
+							for(int x=0;x<ArchivosDOCX.size();x++) {
+								File File = new File(ArchivosDOCX.get(x));
+								String ItemName = File.getName();
+								Long ItemSize = File.length();
+								String ItemDate = new String();
+								BasicFileAttributes attrs;
+								try {
+								    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+								    FileTime time = attrs.creationTime();
+								    String pattern = "yyyy-MM-dd";
+								    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+								    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+								    ItemDate = formatted;
+								} catch (IOException e1) {
+								    e1.printStackTrace();
+								}
+								DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+							}
+							
+						}
+					}
+				});
 				Button SizeSort = new Button("   Size   ");
+				SizeSort.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.PRIMARY)){
+							try {
+								SistemasOrdenamiento.RadixSort(ArchivosPDF);
+								System.out.println(ArchivosPDF);
+								PDFTableView.getItems().clear();
+								for(int x=0;x<ArchivosPDF.size();x++) {
+									File File = new File(ArchivosPDF.get(x));
+									String ItemName = File.getName();
+									Long ItemSize = File.length();
+									String ItemDate = new String();
+									BasicFileAttributes attrs;
+									try {
+									    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+									    FileTime time = attrs.creationTime();
+									    String pattern = "yyyy-MM-dd";
+									    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+									    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+									    ItemDate = formatted;
+									} catch (IOException e1) {
+									    e1.printStackTrace();
+									}
+									PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+								}
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								SistemasOrdenamiento.RadixSort(ArchivosTXT);
+								System.out.println(ArchivosTXT);
+								TXTTableView.getItems().clear();
+								for(int x=0;x<ArchivosTXT.size();x++) {
+									File File = new File(ArchivosTXT.get(x));
+									String ItemName = File.getName();
+									Long ItemSize = File.length();
+									String ItemDate = new String();
+									BasicFileAttributes attrs;
+									try {
+									    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+									    FileTime time = attrs.creationTime();
+									    String pattern = "yyyy-MM-dd";
+									    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+									    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+									    ItemDate = formatted;
+									} catch (IOException e1) {
+									    e1.printStackTrace();
+									}
+									TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+								}
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								SistemasOrdenamiento.RadixSort(ArchivosDOCX);
+								System.out.println(ArchivosDOCX);
+								DOCXTableView.getItems().clear();
+								for(int x=0;x<ArchivosDOCX.size();x++) {
+									File File = new File(ArchivosDOCX.get(x));
+									String ItemName = File.getName();
+									Long ItemSize = File.length();
+									String ItemDate = new String();
+									BasicFileAttributes attrs;
+									try {
+									    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+									    FileTime time = attrs.creationTime();
+									    String pattern = "yyyy-MM-dd";
+									    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+									    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+									    ItemDate = formatted;
+									} catch (IOException e1) {
+									    e1.printStackTrace();
+									}
+									DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+								}
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+				});
 				Button DateSort = new Button("   Date   ");
+				DateSort.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+					public void handle (MouseEvent e) {
+						if(e.getButton().equals(MouseButton.PRIMARY)){
+							try {
+								SistemasOrdenamiento.BubbleSort(ArchivosPDF);
+								System.out.println(ArchivosPDF);
+								PDFTableView.getItems().clear();
+								for(int x=0;x<ArchivosPDF.size();x++) {
+									File File = new File(ArchivosPDF.get(x));
+									String ItemName = File.getName();
+									Long ItemSize = File.length();
+									String ItemDate = new String();
+									BasicFileAttributes attrs;
+									try {
+									    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+									    FileTime time = attrs.creationTime();
+									    String pattern = "yyyy-MM-dd";
+									    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+									    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+									    ItemDate = formatted;
+									} catch (IOException e1) {
+									    e1.printStackTrace();
+									}
+									PDFTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+								}
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								SistemasOrdenamiento.BubbleSort(ArchivosTXT);
+								System.out.println(ArchivosTXT);
+								TXTTableView.getItems().clear();
+								for(int x=0;x<ArchivosTXT.size();x++) {
+									File File = new File(ArchivosTXT.get(x));
+									String ItemName = File.getName();
+									Long ItemSize = File.length();
+									String ItemDate = new String();
+									BasicFileAttributes attrs;
+									try {
+									    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+									    FileTime time = attrs.creationTime();
+									    String pattern = "yyyy-MM-dd";
+									    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+									    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+									    ItemDate = formatted;
+									} catch (IOException e1) {
+									    e1.printStackTrace();
+									}
+									TXTTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+								}
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								SistemasOrdenamiento.BubbleSort(ArchivosDOCX);
+								System.out.println(ArchivosDOCX);
+								DOCXTableView.getItems().clear();
+								for(int x=0;x<ArchivosDOCX.size();x++) {
+									File File = new File(ArchivosDOCX.get(x));
+									String ItemName = File.getName();
+									Long ItemSize = File.length();
+									String ItemDate = new String();
+									BasicFileAttributes attrs;
+									try {
+									    attrs = Files.readAttributes(File.toPath(), BasicFileAttributes.class);
+									    FileTime time = attrs.creationTime();
+									    String pattern = "yyyy-MM-dd";
+									    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+									    String formatted = simpleDateFormat.format(new Date( time.toMillis()));
+									    ItemDate = formatted;
+									} catch (IOException e1) {
+									    e1.printStackTrace();
+									}
+									DOCXTableView.getItems().add(new TableViewCreator(ItemName, ItemSize.toString()+"B", ItemDate));
+								}
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					}
+				});
 				Label Space2 = new Label("                                                                      ");
 				Ordenamientos.getItems().addAll(Label1,Space2,NameSort,new Separator(),SizeSort,new Separator(),DateSort);
 				ExplorerBorderPane.setBottom(Ordenamientos);

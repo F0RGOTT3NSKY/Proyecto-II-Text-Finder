@@ -45,42 +45,40 @@ public class SistemasOrdenamiento {
 		int start = 0;
 		int end = input.size() - 1;
 		quickSort(input, start, end);
-		OrdenFinal(input,start, end);
 		System.out.println(input);
 	}
 	public static void quickSort(ArrayList<String> input, int start, int end) {
 		int i = start;
 		int j = end;
-
-		if (j - i >= 1) {
-			File Pivote = new File(input.get(i));
-			String pivot = Pivote.getName();
-			
-			while (j > i) {
-				File Archivo_i = new File(input.get(i));
-				String NombreArchivo_i = Archivo_i.getName();
-				
-				File Archivo_j = new File(input.get(j));
-				String NombreArchivo_j = Archivo_j.getName();
-				
-				while (NombreArchivo_i.compareTo(pivot) <= 0 && i < end && j > i) {
-					i++;
-				}
-				while (NombreArchivo_j.compareTo(pivot) >= 0 && j > start && j >= i) {
-					j--;
-				}
-				if (j > i)
-					swap(input, i, j);
+		File Pivote = new File(input.get(i));
+		System.out.println(i+(j-i)/2);
+		String pivot = Pivote.getName();
+		while(i<=j) {
+			while(input.get(i).compareTo(pivot) < 0) {
+				i++;
 			}
-			quickSort(input, start, j - 1);
-			quickSort(input, j + 1, end);
+			while (input.get(j).compareTo(pivot) > 0) {
+				j--;
+			}
+			if (i <= j) {
+                swap(input, i, j);
+                i++;
+                j--;
+			}	
 		}
+		if (start < j) {
+            quickSort(input, start, j);
+        }
+        if (i < end) {
+            quickSort(input, i, end);
+        }
+		
 	}
 
 	private static void swap(ArrayList<String> input, int i, int j) {
 		String temp = input.get(i);
-		input.set(i, input.get(j));
-		input.set(j, temp);
+        input.set(i, input.get(j));
+        input.set(j, temp);
 	}
 	
 	public static void OrdenFinal(ArrayList<String> input, int start, int end) {
