@@ -17,5 +17,24 @@
 	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/PDFOneJavaViewer_Executable.jar"/>
 	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/preflight-2.0.17.jar"/>
 	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/xmpbox-2.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/commons-codec-1.13.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/commons-compress-1.19.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/curvesapi-1.06.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/jaxb-core-2.3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/jaxb-impl-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/poi-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/poi-examples-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/poi-excelant-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/poi-ooxml-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/poi-ooxml-schemas-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/poi-scratchpad-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Libraries/Project II Text Finder/xmlbeans-3.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -211,6 +211,7 @@ public class Main extends Application {
 				}
 				SistemasBusqueda.BusquedaTXT(ArchivosTXT, PalabraBuscar);
 				SistemasBusqueda.BusquedaPDF(ArchivosPDF, PalabraBuscar);
+				SistemasBusqueda.BusquedaDOCX(ArchivosDOCX, PalabraBuscar);
 			}
 			
 		});

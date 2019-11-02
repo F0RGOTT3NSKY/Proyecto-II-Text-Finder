@@ -13,6 +13,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+
 import java.text.ParseException;
 
 import com.gnostice.pdfone.PdfDocument;
@@ -28,6 +33,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.xmlbeans.impl.xb.xsdschema.ListDocument.List;
 
 public class SistemasBusqueda {
 	
@@ -78,11 +90,12 @@ public class SistemasBusqueda {
 				File ArchivoTXT = new File(input.get(i));
 				BufferedReader b = new BufferedReader(new FileReader(ArchivoTXT));
 				String readLine = "";
+				
 				while ((readLine = b.readLine()) != null) {
 					if(readLine.contains(palabra)) {
 						TextField TextField = new TextField();
 						TextField.setEditable(false);
-						TextField.setText(ArchivoTXT.getName() + " | " + readLine);
+						TextField.setText(ArchivoTXT.getName() + " | " + readLine.replaceAll(palabra, palabra.toUpperCase()));
 						TextField.setMinWidth(500);
 						 Button button = new Button("Open");
 			 	            button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
@@ -143,7 +156,7 @@ public class SistemasBusqueda {
 			 	            // Print search results to console output
 			 	            TextField TextField = new TextField();
 			 	            TextField.setEditable(false);
-			 	            TextField.setText(File.getName() + " | " + ElementoBuscado.getLineContainingMatchString());
+			 	            TextField.setText(File.getName() + " | " + ElementoBuscado.getLineContainingMatchString().replaceAll(palabra, palabra.toUpperCase()));
 			 	            TextField.setMinWidth(500);
 			 	            Button button = new Button("Open");
 			 	            button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
@@ -175,6 +188,51 @@ public class SistemasBusqueda {
 				e.printStackTrace();
 			} catch(PdfException e) {
 				e.getStackTrace();
+			}
+		}
+	}
+	
+	public static void BusquedaDOCX (ArrayList<String> input, String palabra) {
+		for(int indice = 0; indice < input.size(); indice++) {
+			XWPFDocument xdoc;		
+			try {
+				File archivo = new File(input.get(indice));
+				xdoc = new XWPFDocument(OPCPackage.open(archivo));
+				java.util.List<XWPFParagraph> paragraphList = xdoc.getParagraphs();
+				for (XWPFParagraph paragraph : paragraphList) {
+					String parrafo = paragraph.getText();
+					if(parrafo.contains(palabra)) {
+						TextField TextField = new TextField();
+						TextField.setEditable(false);
+						TextField.setText(parrafo.replaceAll(palabra, palabra.toUpperCase()));
+						TextField.setMinWidth(500);
+						Button button = new Button("Open");
+		 	            button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {       		
+							public void handle (MouseEvent e) {
+								if(e.getButton().equals(MouseButton.PRIMARY)) {
+									if(!Desktop.isDesktopSupported()){
+							            System.out.println("Desktop is not supported");
+							            return;
+							        }
+							        Desktop desktop = Desktop.getDesktop();
+							        if(archivo.exists())
+										try {
+											desktop.open(archivo);
+										} catch (IOException e1) {
+											e1.printStackTrace();
+										}
+								}
+							}
+						});
+		 	           HBox Hbox = new HBox();
+		 	           Hbox.getChildren().addAll(TextField,button);
+		 	           Main.DOCXSearchVbox.getChildren().add(Hbox);
+					}				
+				}
+			} catch (InvalidFormatException ex) {
+				System.out.println();
+			} catch (IOException e) {
+				System.out.println();
 			}
 		}
 	}
