@@ -53,18 +53,21 @@ public class Main extends Application {
 	public static final TitledPane PDFPane = new TitledPane("PDF",new Label("Show all PDF files available"));
 	public static final TitledPane PDFWordSearch = new TitledPane("PDF",new Label("Show all PDF files available"));
 	public static final VBox PDFVbox = new VBox();
+	public static final VBox PDFSearchVbox = new VBox();
 	public static final TableView PDFTableView = new TableView();
 	public static final SplitPane PDFSplitPane = new SplitPane();
 	
 	public static final TitledPane TXTPane = new TitledPane("TXT",new Label("Show all TXT files available"));
 	public static final TitledPane TXTWordSearch = new TitledPane("TXT",new Label("Show all TXT files available"));
 	public static final VBox TXTVbox = new VBox();
+	public static final VBox TXTSearchVbox = new VBox();
 	public static final TableView TXTTableView = new TableView();
 	public static final SplitPane TXTSplitPane = new SplitPane();
 	
 	public static final TitledPane DOCXPane = new TitledPane("DOCX",new Label("Show all DOCX files available"));
 	public static final TitledPane DOCXWordSearch = new TitledPane("DOCX",new Label("Show all DOCX files available"));
 	public static final VBox DOCXVbox = new VBox();
+	public static final VBox DOCXSearchVbox = new VBox();
 	public static final TableView DOCXTableView = new TableView();
 	public static final SplitPane DOCXSplitPane = new SplitPane();
 
@@ -180,7 +183,6 @@ public class Main extends Application {
 		BorderPane ExplorerBorderPane = new BorderPane();
 		SplitPane FileSplitPane = new SplitPane();
 		DisplayPane.setTop(BarraBuscador);
-		
 		Boton_Buscar.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
 			@Override
@@ -198,6 +200,9 @@ public class Main extends Application {
 		Accordion FileAccordion = new Accordion();
 		Accordion WordSearch = new Accordion();
 		WordSearch.getPanes().addAll(PDFWordSearch,TXTWordSearch,DOCXWordSearch);
+		PDFWordSearch.setContent(PDFSearchVbox);
+		TXTWordSearch.setContent(TXTSearchVbox);
+		DOCXWordSearch.setContent(DOCXSearchVbox);
 		WordSearch.setMinHeight(557);
 		SplitPane SplitPane2 = new SplitPane();
 		SplitPane2.setOrientation(Orientation.VERTICAL);

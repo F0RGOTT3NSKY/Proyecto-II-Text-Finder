@@ -20,6 +20,8 @@ import com.gnostice.pdfone.PdfSearchElement;
 import com.gnostice.pdfone.PdfSearchMode;
 import com.gnostice.pdfone.PdfSearchOptions;
 
+import javafx.scene.control.TextField;
+
 public class SistemasBusqueda {
 	
 	/**
@@ -108,6 +110,10 @@ public class SistemasBusqueda {
 			 	        	ElementoBuscado = (PdfSearchElement) ResultadosBusqueda.get(i);
 			 	            // Print search results to console output
 			 	            System.out.println(ElementoBuscado.getLineContainingMatchString() + "\"" );
+			 	            TextField TextField = new TextField();
+			 	            TextField.setEditable(false);
+			 	            TextField.setText(ElementoBuscado.getLineContainingMatchString());
+			 	            Main.PDFSearchVbox.getChildren().add(TextField);
 			 	        }
 		        }
 		        
