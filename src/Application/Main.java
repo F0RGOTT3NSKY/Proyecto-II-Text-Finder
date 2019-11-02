@@ -69,7 +69,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		ArrayList<String> TODOSArchivos = new ArrayList<String>();  
+		ArrayList<String> TODOSArchivos = new ArrayList<String>();
+		ArrayList<String> ArchivosTXT = new ArrayList<String>();
+		ArrayList<String> ArchivosPDF = new ArrayList<String>();
+		ArrayList<String> ArchivosDOCX = new ArrayList<String>();
 		treeView = new TreeView<FilePath>();
         TextField filter = new TextField();
         filter.textProperty().addListener((observable, oldValue, newValue) -> filterChanged(newValue));
