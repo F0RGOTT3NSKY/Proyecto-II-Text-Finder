@@ -9,6 +9,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -82,27 +83,42 @@ public class Main extends Application {
         //CREACION DE TABLECOLUMNS
         TableColumn PDFNameColumn = new TableColumn("Name");
         PDFNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        PDFNameColumn.setMinWidth(200);
+        PDFNameColumn.setMinWidth(172);
+        PDFNameColumn.setSortable(false);
         TableColumn PDFSizeColumn = new TableColumn("Size");
         PDFSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         PDFSizeColumn.setMinWidth(50);
-        TableColumn PDFDateColumn = new TableColumn("CreationDate");
+        PDFSizeColumn.setSortable(false);
+        TableColumn PDFDateColumn = new TableColumn("Created");
         PDFDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         PDFDateColumn.setMinWidth(50);
+        PDFDateColumn.setSortable(false);
         PDFTableView.getColumns().addAll(PDFNameColumn,PDFSizeColumn,PDFDateColumn);
         TableColumn TXTNameColumn = new TableColumn("Name");
         TXTNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TXTNameColumn.setMinWidth(172);
+        TXTNameColumn.setSortable(false);
         TableColumn TXTSizeColumn = new TableColumn("Size");
         TXTSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
-        TableColumn TXTDateColumn = new TableColumn("CreationDate");
+        TXTSizeColumn.setMinWidth(50);
+        TXTSizeColumn.setSortable(false);
+        TableColumn TXTDateColumn = new TableColumn("Created");
         TXTDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        TXTDateColumn.setMinWidth(50);
+        TXTDateColumn.setSortable(false);
         TXTTableView.getColumns().addAll(TXTNameColumn,TXTSizeColumn,TXTDateColumn);
         TableColumn DOCXNameColumn = new TableColumn("Name");
         DOCXNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        DOCXNameColumn.setMinWidth(172);
+        DOCXNameColumn.setSortable(false);
         TableColumn DOCXSizeColumn = new TableColumn("Size");
         DOCXSizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
-        TableColumn DOCXDateColumn = new TableColumn("CreationDate");
+        DOCXSizeColumn.setMinWidth(50);
+        DOCXSizeColumn.setSortable(false);
+        TableColumn DOCXDateColumn = new TableColumn("Created");
         DOCXDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        DOCXDateColumn.setMinWidth(50);
+        DOCXDateColumn.setSortable(false);
         DOCXTableView.getColumns().addAll(DOCXNameColumn,DOCXSizeColumn,DOCXDateColumn);
         //EVENT TO ADD FILES TO TABLEVIEW
         
@@ -227,10 +243,15 @@ public class Main extends Application {
 				ExplorerBorderPane.setCenter(treeView);
 				//Label Label1 = new Label("Archivos Seleccionados                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ");
 				Label Label1= new Label("Archivos Seleccionados");
-				Label1.setMinWidth(2000);
-				Label1.setStyle("-fx-background-color: #FF4500");
 				Label1.setTextFill(Color.WHITE);
-				ExplorerBorderPane.setBottom(Label1);
+				ToolBar Ordenamientos = new ToolBar();
+				Ordenamientos.setStyle("-fx-background-color: #FF4500");
+				Button NameSort = new Button("   Name   ");
+				Button SizeSort = new Button("   Size   ");
+				Button DateSort = new Button("   Date   ");
+				Label Space2 = new Label("                                                                      ");
+				Ordenamientos.getItems().addAll(Label1,Space2,NameSort,new Separator(),SizeSort,new Separator(),DateSort);
+				ExplorerBorderPane.setBottom(Ordenamientos);
 				FileAccordion.getPanes().add(PDFPane);
 				PDFPane.setContent(PDFSplitPane); //TODO: Splitpanes
 				PDFSplitPane.getItems().addAll(PDFVbox,PDFTableView);
@@ -267,7 +288,7 @@ public class Main extends Application {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							PDFVbox.getChildren().remove(button);
 							input.remove(name);
-							PDFTableView.getItems().remove(0);
+							PDFTableView.getItems().remove(input.indexOf(name)+1);
 						}
 					}
 				});
@@ -283,7 +304,7 @@ public class Main extends Application {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							TXTVbox.getChildren().remove(button);
 							input.remove(name);
-							TXTTableView.getItems().remove(0);
+							TXTTableView.getItems().remove(input.indexOf(name)+1);
 						}
 					}
 				});
@@ -299,7 +320,7 @@ public class Main extends Application {
 						if(e.getButton().equals(MouseButton.SECONDARY)){
 							DOCXVbox.getChildren().remove(button);
 							input.remove(name);
-							DOCXTableView.getItems().remove(0);
+							DOCXTableView.getItems().remove(input.indexOf(name)+1);
 						}
 					}
 				});
