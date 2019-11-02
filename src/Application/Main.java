@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,11 +18,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -193,16 +191,23 @@ public class Main extends Application {
 				}
 				SistemasBusqueda.BusquedaTXT(ArchivosTXT, PalabraBuscar);
 				SistemasBusqueda.BusquedaPDF(ArchivosPDF, PalabraBuscar);
-			}		
+			}
+			
 		});
 		
 		FileSplitPane.setOrientation(Orientation.VERTICAL);
 		Accordion FileAccordion = new Accordion();
 		Accordion WordSearch = new Accordion();
 		WordSearch.getPanes().addAll(PDFWordSearch,TXTWordSearch,DOCXWordSearch);
-		PDFWordSearch.setContent(PDFSearchVbox);
-		TXTWordSearch.setContent(TXTSearchVbox);
-		DOCXWordSearch.setContent(DOCXSearchVbox);
+		ScrollPane PDFScroll = new ScrollPane();
+		PDFScroll.setContent(PDFSearchVbox);
+		PDFWordSearch.setContent(PDFScroll);
+		ScrollPane TXTScroll = new ScrollPane();
+		TXTScroll.setContent(TXTSearchVbox);
+		TXTWordSearch.setContent(TXTScroll);
+		ScrollPane DOCXScroll = new ScrollPane();
+		DOCXScroll.setContent(DOCXSearchVbox);
+		DOCXWordSearch.setContent(DOCXScroll);
 		WordSearch.setMinHeight(557);
 		SplitPane SplitPane2 = new SplitPane();
 		SplitPane2.setOrientation(Orientation.VERTICAL);
